@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        <!--JavaScript-->
+        <!--library-->
+        <script type="text/javascript" src="lib/jQuery/jquery.min.js"></script>
+        <script type="text/javascript" src="lib/toastr/toastr.min.js"></script>
+        <script type="text/javascript" src="lib/bootstrap/bootstrap.min.js"></script>
+        <!--custom-->
+        <script type="text/javascript" src="js/main.js"></script>
+        <script type="text/javascript" src="js/registeredUser/registrationUser.js"></script>
+
+        <!--CSS-->
+        <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css"/>
+        <link rel="stylesheet" href="css/bootstrap/bootstrap-theme.min.css"/>
+        <link rel="stylesheet" href="css/toastr/toastr.min.css"/>
+        <!--custom-->
+        <link rel="stylesheet" href="css/style.css"/>
+
+        <title>Registracija korisnika</title>
+    </head>
+    <body>
+        <div class="registration-page">
+            <div class="row" id="row-registration">
+                <div class="col-sm-6 col-sm-offset-3 form-box">
+                    <div class="form-top">
+                        <img id="logo" src="images/logo.png" style="cursor:pointer;">
+                        <h1>Dobrodošli!</h1>
+                        <br />
+                        <p>Unesite Vaše podatke i pridružite nam se!</p>
+                    </div>
+                    <div class="form-bottom">
+                        <form id="registrationForm" accept-charset="UTF-8">
+                            <div class="form-group">
+                                <div class="inner-addon left-addon">
+                                    <i class="glyphicon glyphicon-user"></i>
+                                    <input type="text" name="name" id="registration-user-name" placeholder="Ime..." class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="inner-addon left-addon">
+                                    <i class="glyphicon glyphicon-user"></i>
+                                    <input type="text" name="lastname" id="registration-user-lastname" placeholder="Prezime..." class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="inner-addon left-addon">
+                                    <i class="glyphicon glyphicon-envelope"></i>
+                                    <input type="text" name="email" id="registration-user-email" placeholder="E-mail adresa..." class="form-control">
+                                </div>
+                                <!--<small> Email adresa mora da sadrži simbol @, ispred i iza kog su dozvoljena mala i velika slova i cifre </small>-->
+                            </div>
+                            <div class="form-group">
+                                <div class="inner-addon left-addon">
+                                    <i class="glyphicon glyphicon-pencil"></i>
+                                    <input type="text" name="username" id="registration-user-username" placeholder="Korisničko ime..." class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="inner-addon left-addon">
+                                    <i class="glyphicon glyphicon-lock"></i>
+                                    <input type="password" name="password" id="registration-user-password" placeholder="Lozinka..." class="form-control">
+                                </div>
+                                <!--<small> Lozinka mora da sadrži najmanje 3 karaktera </small>-->
+                            </div>
+                            <div class="form-group">
+                                <div class="inner-addon left-addon">
+                                    <i class="glyphicon glyphicon-lock"></i>
+                                    <input type="password" name="password2" id="registration-user-password2" placeholder="Lozinka..." class="form-control">
+                                </div>
+                            </div>
+
+                            <button type="button" class="btn" id="button-registration-user">Registruj se!</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

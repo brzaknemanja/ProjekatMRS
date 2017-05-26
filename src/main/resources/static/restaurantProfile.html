@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+
+        <!--JavaScript-->
+        <!--library-->
+        <script type="text/javascript" src="lib/jQuery/jquery.min.js"></script>
+        <script type="text/javascript" src="lib/toastr/toastr.min.js"></script>
+        <script type="text/javascript" src="lib/bootstrap/bootstrap.min.js"></script>
+        <!--custom-->
+        <script type="text/javascript" src="js/main.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/restaurant/editRestaurant.js"></script>
+        <script type="text/javascript" src="js/restaurantManager/ManagerRestNavBar.js"></script>
+        <!--CSS-->
+        <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css"/>
+        <link rel="stylesheet" href="css/bootstrap/bootstrap-theme.min.css"/>
+        <link rel="stylesheet" href="css/toastr/toastr.min.css"/>
+        <!--custom-->
+        <link rel="stylesheet" href="css/style.css"/>
+
+        <title>Restoran</title>
+    </head>
+    <body>
+
+        <script type="text/javascript">
+            $.get("/navbars/navigationBar.html", function(data){
+                $("#header").replaceWith(data);
+            });
+        </script>
+
+        <div class="header" id="header"></div>
+
+        <div class="container profile-container">
+            <div class="row">
+                <div class="col-sm-10 col-sm-offset-1">
+                    <table class="table table-condensed" id="profile-data">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <strong><span class="glyphicon glyphicon-cloud text-primary"></span> Naziv</strong>
+                            </td>
+                            <td class="text-primary" id="restaurant-name"></td>
+                            <td><button class="btn btn-warning" id="restaurant-name-button">Izmeni</button></td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <strong><span class="glyphicon glyphicon-cloud text-primary"></span> Opis </strong>
+                            </td>
+                            <td class="text-primary" id="restaurant-description"></td>
+                            <td><button class="btn btn-warning" id="restaurant-description-button">Izmeni</button></td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <strong><span class="glyphicon glyphicon-cloud text-primary"></span> Ulica i broj </strong>
+                            </td>
+                            <td class="text-primary" id="restaurant-street"></td>
+                            <td><button class="btn btn-warning" id="restaurant-street-button">Izmeni</button></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong><span class="glyphicon glyphicon-cloud text-primary"></span> Grad </strong>
+                            </td>
+                            <td class="text-primary" id="restaurant-city"></td>
+                            <td><button class="btn btn-warning" id="restaurant-city-button">Izmeni</button></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <h3>Pica</h3>
+                    <table class="table table-condensed" id="drinks-table">
+                        <thead>
+                        <tr>
+                            <th align="center"><strong><span class="glyphicon glyphicon-glass text-primary"></span> Naziv </strong></th>
+                            <th align="center"><strong><span class="glyphicon glyphicon-cloud text-primary"></span> Opis </strong></th>
+                            <th align="center"><strong><span class="glyphicon glyphicon-piggy-bank text-primary"></span> Cena </strong></th>
+                        </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                    <button class="btn btn-warning" data-toggle="modal" data-target="#foodModal" id="restaurant-drink-button">
+                        Dodaj pice
+                    </button>
+                    <h3>Hrana</h3>
+                    <table class="table table-condensed" id="dish-table">
+                        <thead>
+                        <tr>
+                            <th align="center"><strong><span class="glyphicon glyphicon-cutlery text-primary"></span> Naziv </strong></th>
+                            <th align="center"><strong><span class="glyphicon glyphicon-cloud text-primary"></span> Opis </strong></th>
+                            <th align="center"><strong><span class="glyphicon glyphicon-piggy-bank text-primary"></span> Cena </strong></th>
+                        </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                    <button class="btn btn-warning" data-toggle="modal" data-target="#foodModal" id="restaurant-dish-button">
+                        Dodaj jelo
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="foodModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Unesite podatke:</h5>
+                    </div>
+                    <div class="modal-body">
+                        <form id="new-food">
+                            <div class="row">
+                                <div class="form-group col-lg-4">
+                                    <label>Naziv:</label>
+                                    <input type="text" class="form-control" name="name" id="new-food-name" placeholder="naziv..." size="30">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-lg-4">
+                                    <label>Kratak opis:</label>
+                                    <input type="text" class="form-control" name="description" id="new-food-desc" placeholder="kratak opis..." size="30">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-lg-4">
+                                    <label>Cena:</label>
+                                    <input type="text" class="form-control" name="price" id="new-food-price" placeholder="cena..." size="30">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" id="food-quit-button" data-dismiss="modal">Odustani</button>
+                        <button type="button" class="btn btn-warning" id="restaurant-food-button">Dodaj</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

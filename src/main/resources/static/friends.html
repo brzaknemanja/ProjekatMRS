@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        <!--JavaScript-->
+        <!--library-->
+        <script type="text/javascript" src="lib/jQuery/jquery.min.js"></script>
+        <script type="text/javascript" src="lib/toastr/toastr.min.js"></script>
+        <script type="text/javascript" src="lib/bootstrap/bootstrap.min.js"></script>
+        <!--custom-->
+        <script type="text/javascript" src="js/main.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/registeredUser/friendsPage.js"></script>
+        <script type="text/javascript" src="js/registeredUser/regUserNavbar.js"></script>
+
+        <!--CSS-->
+        <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css"/>
+        <link rel="stylesheet" href="css/bootstrap/bootstrap-theme.min.css"/>
+        <link rel="stylesheet" href="css/toastr/toastr.min.css"/>
+        <!--custom-->
+        <link rel="stylesheet" href="css/style.css"/>
+
+        <title>Pretraga prijatelja</title>
+    </head>
+    <body>
+
+        <script type="text/javascript">
+            $.get("/navbars/navigationBar.html", function(data){
+                $("#header").replaceWith(data);
+            });
+        </script>
+
+        <div class="header" id="header"></div>
+
+        <div class="container friends-container">
+            <div class="row">
+
+                <div class="friends-left">
+                    <div class="col-md-6">
+                        <strong>Prijatelji</strong>
+                        <table class="table table-hover table-condensed" id="friend-table">
+                            <thead>
+                                <tr class="col-md-3"></tr>
+                                <tr class="col-md-3"></tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+
+                        <strong>Zahtevi za prijateljstvo</strong>
+                        <table class="table table-hover table-condensed" id="friend-request-table">
+                            <thead>
+                            <tr class="col-md-2"></tr>
+                            <tr class="col-md-2"></tr>
+                            <tr class="col-md-2"></tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="friends-right">
+                    <div class="col-md-6">
+                        <form class="form-group" id="search-user-form">
+                            <table>
+                                <tr>
+                                    <td><input type="text" class="form-control" placeholder="Parametar pretrage..."></td>
+                                    <td><button class="btn btn-warning" id="search-user-button">
+                                        <span class="glyphicon glyphicon-search"></span> Pronadji</button></td>
+                                </tr>
+                            </table>
+                        </form>
+
+                        <table class="table table-hover table-condensed" id="user-table">
+                            <thead>
+                                <tr class="col-md-3"></tr>
+                                <tr class="col-md-3"></tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

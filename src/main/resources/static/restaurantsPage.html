@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        <!--JavaScript-->
+        <!--library-->
+        <script type="text/javascript" src="lib/jQuery/jquery.min.js"></script>
+        <script type="text/javascript" src="lib/toastr/toastr.min.js"></script>
+        <script type="text/javascript" src="lib/bootstrap/bootstrap.min.js"></script>
+        <!--custom-->
+        <script type="text/javascript" src="js/main.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/registeredUser/regUserNavbar.js"></script>
+        <script type="text/javascript" src="js/systemManager/managerSystemNavbar.js"></script>
+        <script type="text/javascript" src="js/restaurantListPage.js"></script>
+
+        <!--CSS-->
+        <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css"/>
+        <link rel="stylesheet" href="css/bootstrap/bootstrap-theme.min.css"/>
+        <link rel="stylesheet" href="css/toastr/toastr.min.css"/>
+        <!--custom-->
+        <link rel="stylesheet" href="css/style.css"/>
+
+        <title>Pretraga prijatelja</title>
+    </head>
+    <body>
+        <script type="text/javascript">
+            $.get("/navbars/navigationBar.html", function(data){
+                $("#header").replaceWith(data);
+            });
+        </script>
+
+        <div class="header" id="header"></div>
+
+        <div class="regUser-view-restaurants">
+            <div class="container">
+                <table class="table table-hover table-condensed" id="restaurant-list-table">
+                    <thead>
+                        <th class="col-md-2"> Naziv </th>
+                        <th class="col-md-4"> Opis </th>
+                        <th class="col-md-2"> Adresa </th>
+                        <th class="col-md-2"> Grad </th>
+                        <th class="col-md-2"> Tip kuhinje </th>
+                        <th class="col-md-1"></th>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>

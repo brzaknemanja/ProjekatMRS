@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        <!--JavaScript-->
+        <!--library-->
+        <script type="text/javascript" src="lib/jQuery/jquery.min.js"></script>
+        <script type="text/javascript" src="lib/toastr/toastr.min.js"></script>
+        <script type="text/javascript" src="lib/bootstrap/bootstrap.min.js"></script>
+        <!--custom-->
+        <script type="text/javascript" src="js/main.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/employees/calendar.js"></script>
+        <script type="text/javascript" src="js/profile.js"></script>
+        <script type="text/javascript" src="js/registeredUser/regUserNavbar.js"></script>
+        <script type="text/javascript" src="js/employees/employeeNavbar.js"></script>
+
+
+        <!--CSS-->
+        <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css"/>
+        <link rel="stylesheet" href="css/bootstrap/bootstrap-theme.min.css"/>
+        <link rel="stylesheet" href="css/toastr/toastr.min.css"/>
+        <!--custom-->
+        <link rel="stylesheet" href="css/style.css"/>
+        <link rel="stylesheet" href="css/calendar.css"/>
+
+        <title>Korisnicki profil</title>
+    </head>
+
+    <body>
+        <script type="text/javascript">
+            $.get("/navbars/navigationBar.html", function(data){
+                $("#header").replaceWith(data);
+            });
+        </script>
+
+        <div class="header" id="header"></div>
+
+        <div class="container profile-container">
+            <div class="row">
+                <div class="col-sm-10 col-sm-offset-1">
+                    <table class="table table-condensed" id="profile-data">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <strong><span class="glyphicon glyphicon-user text-primary"></span> Ime</strong>
+                                </td>
+                                <td class="text-primary" id="user-profile-name"></td>
+                                <td><button class="btn btn-warning" id="profile-change-name-button">Izmeni</button></td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <strong><span class="glyphicon glyphicon-cloud text-primary"></span> Prezime </strong>
+                                </td>
+                                <td class="text-primary" id="user-profile-lastname"></td>
+                                <td><button class="btn btn-warning" id="profile-change-lastname-button">Izmeni</button></td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <strong><span class="glyphicon glyphicon-pencil text-primary"></span> Korisničko ime </strong>
+                                </td>
+                                <td class="text-primary" id="user-profile-username"></td>
+                                <td></td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <strong><span class="glyphicon glyphicon-lock text-primary"></span> Lozinka </strong>
+                                </td>
+                                <td class="text-primary" id="user-profile-password"></td>
+                                <td><button class="btn btn-warning" id="profile-change-password-button">Izmeni</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="work-calendar"></div>
+    </body>
+</html>

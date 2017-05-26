@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        <!--JavaScript-->
+        <!--library-->
+        <script type="text/javascript" src="lib/jQuery/jquery.min.js"></script>
+        <script type="text/javascript" src="lib/toastr/toastr.min.js"></script>
+        <script type="text/javascript" src="lib/bootstrap/bootstrap.min.js"></script>
+        <!--custom-->
+        <script type="text/javascript" src="js/main.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/registeredUser/regUserNavbar.js"></script>
+        <script type="text/javascript" src="js/restaurantManager/ManagerRestNavBar.js"></script>
+        <script type="text/javascript" src="js/systemManager/managerSystemNavBar.js"></script>
+        <script type="text/javascript" src="js/employees/employeeNavbar.js"></script>
+
+        <!--CSS-->
+        <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css"/>
+        <link rel="stylesheet" href="css/bootstrap/bootstrap-theme.min.css"/>
+        <link rel="stylesheet" href="css/toastr/toastr.min.css"/>
+        <!--custom-->
+        <link rel="stylesheet" href="css/style.css"/>
+
+        <title>Pocetna stranica</title>
+    </head>
+
+    <body>
+        <script type="text/javascript">
+            $.get("/navbars/navigationBar.html", function(data){
+                $("#header").replaceWith(data);
+            });
+        </script>
+
+        <div class="header" id="header"></div>
+
+        <div id = "changePassword"></div>
+
+        <p id="message"></p>
+    </body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        <!--JavaScript-->
+        <!--library-->
+        <script type="text/javascript" src="lib/jQuery/jquery.min.js"></script>
+        <script type="text/javascript" src="lib/toastr/toastr.min.js"></script>
+        <script type="text/javascript" src="lib/bootstrap/bootstrap.min.js"></script>
+        <!--custom-->
+        <script type="text/javascript" src="js/main.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/fabric.js"></script>
+        <script type="text/javascript" src="js/restaurant/registrationRestaurant.js"></script>
+        <script type="text/javascript" src="js/systemManager/managerSystemNavBar.js"></script>
+
+        <!--CSS-->
+        <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css"/>
+        <link rel="stylesheet" href="css/bootstrap/bootstrap-theme.min.css"/>
+        <link rel="stylesheet" href="css/toastr/toastr.min.css"/>
+        <!--custom-->
+        <link rel="stylesheet" href="css/style.css"/>
+        <link rel="stylesheet" type="text/css" href="css/registrationRestaurant.css">
+
+        <title>Registracija restorana</title>
+    </head>
+
+    <body>
+        <script type="text/javascript">
+            $.get("/navbars/navigationBar.html", function(data){
+                $("#header").replaceWith(data);
+            });
+        </script>
+
+        <div class="header" id="header"></div>
+
+
+        <h3>Registruj novi restoran</h3>
+        <form id="regRest">
+            <div class="row">
+                <div class="form-group col-lg-4">
+                    <label>Naziv restorana:</label>
+                    <input type="text" class="form-control" name="name" placeholder="naziv" size="30">
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-lg-4">
+                    <label>Kratak opis:</label>
+                    <input type="text" class="form-control" name="description" placeholder="kratak opis..." size="30">
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-lg-4">
+                    <label>Ulica i broj:</label>
+                    <input type="text" class="form-control" name="street" placeholder="ulica i broj..." size="30">
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-lg-4">
+                    <label>Grad:</label>
+                    <input type="text" class="form-control" name="city" placeholder="grad..." size="30">
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-lg-4">
+                    <label>Vrsta kuhinje:</label>
+                    <select class="form-control" id="kitchen"></select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-lg-4">
+                    <label>Menadzer:</label>
+                    <select class="form-control" id="managerss"></select>
+                </div>
+            </div>
+            <button type="submit" id="button-registration-restaurant" class="btn">Registruj</button>
+        </form>
+
+        <h3>Konfiguracija sedenja</h3>
+        <button type="button" id="dve-stolice" class="btn btn-margin-right">
+          2 x <span class="glyphicon glyphicon-user"></span>
+        </button>
+        <button type="button" id="cetiri-stolice" class="btn btn-margin-right">
+          4 x <span class="glyphicon glyphicon-user"></span>
+        </button>
+        <button type="button" id="sest-stolica" class="btn btn-margin-right">
+          6 x <span class="glyphicon glyphicon-user"></span>
+        </button>
+        <canvas id="canvas" width="1200" height="500" style="border : 1px solid black;"></canvas>
+    </body>
+</html>
+
+<span class="glyphicons glyphicons-user"></span>

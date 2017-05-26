@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        <!--JavaScript-->
+        <!--library-->
+        <script type="text/javascript" src="lib/jQuery/jquery.min.js"></script>
+        <script type="text/javascript" src="lib/toastr/toastr.min.js"></script>
+        <script type="text/javascript" src="lib/bootstrap/bootstrap.min.js"></script>
+        <!--custom-->
+        <script type="text/javascript" src="js/main.js"></script>
+        <script type="text/javascript" src="js/login.js"></script>
+
+        <!--CSS-->
+        <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css"/>
+        <link rel="stylesheet" href="css/bootstrap/bootstrap-theme.min.css"/>
+        <link rel="stylesheet" href="css/toastr/toastr.min.css"/>
+        <!--custom-->
+        <link rel="stylesheet" href="css/style.css"/>
+
+        <title>Logovanje</title>
+    </head>
+    <body>
+        <div class="login-page">
+            <div class="row" id="row-login">
+                <div class="col-sm-4 col-sm-offset-4">
+                    <div class="form-top">
+                        <img id="homeLogo" src="images/logo.png">
+                        <h1>Dobrodošli!</h1>
+                        <br />
+                        <p>Unesite Vaše korisničko ime i lozinku da biste se ulogovali</p>
+                    </div>
+                    <div class="form-bottom">
+                        <form id="loginForm" accept-charset="UTF-8">
+                            <div class="form-group">
+                                <div class="inner-addon left-addon">
+                                    <i class="glyphicon glyphicon-user"></i>
+                                    <input type="text" name="username" id="login-username" placeholder="Korisničko ime..." class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="inner-addon left-addon">
+                                    <i class="glyphicon glyphicon-lock"></i>
+                                    <input type="password" name="password" id="login-password" placeholder="Lozinka..." class="form-control">
+                                </div>
+                            </div>
+                            <button type="button" id="button-form-login" class="btn">Uloguj se!</button>
+                        </form>
+                        <div class="form-bottom-text">
+                            <p>Nemate svoj nalog? <a href="userRegistration.html"><span>Registrujte se sada!</span></a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

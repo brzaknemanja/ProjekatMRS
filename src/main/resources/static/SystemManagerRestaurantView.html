@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+
+        <!--JavaScript-->
+        <!--library-->
+        <script type="text/javascript" src="lib/jQuery/jquery.min.js"></script>
+        <script type="text/javascript" src="lib/toastr/toastr.min.js"></script>
+        <script type="text/javascript" src="lib/bootstrap/bootstrap.min.js"></script>
+        <!--custom-->
+        <script type="text/javascript" src="js/main.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/systemManager/ManagerSystemNavBar.js"></script>
+        <script type="text/javascript" src="js/systemManager/SystemManagerRestaurantView.js"></script>
+        <!--CSS-->
+        <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css"/>
+        <link rel="stylesheet" href="css/bootstrap/bootstrap-theme.min.css"/>
+        <link rel="stylesheet" href="css/toastr/toastr.min.css"/>
+        <!--custom-->
+        <link rel="stylesheet" href="css/style.css"/>
+
+        <title>Restoran</title>
+    </head>
+    <body>
+        <script type="text/javascript">
+            $.get("/navbars/navigationBar.html", function(data){
+                $("#header").replaceWith(data);
+            });
+        </script>
+
+        <div class="header" id="header"></div>
+
+        <div class="container profile-container">
+            <div class="row">
+                <div class="col-sm-10 col-sm-offset-1">
+                    <table class="table table-condensed" id="profile-data">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <strong><span class="glyphicon glyphicon-cloud text-primary"></span> Naziv</strong>
+                            </td>
+                            <td class="text-primary" id="restaurant-name"></td>
+                            <td><button class="btn btn-warning" id="restaurant-name-button">Izmeni</button></td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <strong><span class="glyphicon glyphicon-cloud text-primary"></span> Opis </strong>
+                            </td>
+                            <td class="text-primary" id="restaurant-description"></td>
+                            <td><button class="btn btn-warning" id="restaurant-description-button">Izmeni</button></td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <strong><span class="glyphicon glyphicon-cloud text-primary"></span> Ulica i broj </strong>
+                            </td>
+                            <td class="text-primary" id="restaurant-street"></td>
+                            <td><button class="btn btn-warning" id="restaurant-street-button">Izmeni</button></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong><span class="glyphicon glyphicon-cloud text-primary"></span> Grad </strong>
+                            </td>
+                            <td class="text-primary" id="restaurant-city"></td>
+                            <td><button class="btn btn-warning" id="restaurant-city-button">Izmeni</button></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <h3>Menadzeri</h3>
+                    <table class="table table-condensed" id="managers-table">
+                        <thead>
+                        <tr>
+                            <th align="center"><strong><span class="glyphicon glyphicon-cloud text-primary"></span> Ime </strong></th>
+                            <th align="center"><strong><span class="glyphicon glyphicon-cloud text-primary"></span> Prezime </strong></th>
+                            <th align="center"><strong><span class="glyphicon glyphicon-cloud text-primary"></span> Korisnicko ime </strong></th>
+                        </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                    <div class="row">
+                        <div class="form-group col-lg-4">
+                            <label>Menadzer:</label>
+                            <select class="form-control" id="managers"></select>
+                        </div>
+                    </div>
+                    <button type="submit" id="add-manager" class="btn">Dodaj menadzera</button>
+                </div>
+            </div>
+        </div>
+
+
+    </body>
+</html>

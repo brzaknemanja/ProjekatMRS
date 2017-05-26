@@ -1,0 +1,167 @@
+#navigation-bar {
+    background-color: #3c3c3c!important;
+}
+
+.navbar{
+    margin-bottom: 0!important;
+}
+
+.navbar-header img {
+    max-width:100px!important;
+    margin-top: -40px!important;
+}
+
+.navbar-inverse {
+    border-width: 0;
+    top: 0;
+}
+
+.btn-margin-left {
+    margin-left: 2px;
+    vertical-align: -15px;
+    background-color: #f89406;
+    color: white;
+}
+
+.btn-margin-right {
+    margin-right: 2px;
+    vertical-align: -15px;
+    background-color: #f89406;
+    color: white;
+}
+
+#button-form-login, #button-registration-menu, #button-registration-manager-menu, #button-registration-rest-manager,
+#button-registration-sys-manager, #button-registration-user, #button-registration-employee, #button-registration-restaurant{
+    vertical-align: -15px;
+    background-color: #f89406;
+    color: white;
+}
+
+#link-registration-barman, #link-registration-chef, #link-registration-waiter, #link-registration-manager-system,
+#link-registration-manager-restaurant{
+    background-color: white;
+    color: #f89406;
+}
+
+#login-username, #login-password, #registration-user-name, #registration-user-lastname, #registration-user-email,
+#registration-user-username, #registration-user-password, #registration-user-password2{
+    height: 50px;
+    margin: 0;
+    padding: 0 30px;
+    vertical-align: middle;
+    background: #f8f8f8;
+    border: 3px solid #ddd;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 50px;
+}
+
+btn .glyphicon, td .glyphicon{
+    color: white;
+}
+
+td > strong {
+    vertical-align: middle;
+}
+
+td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.table tbody tr:hover td {
+    background-color: #f9f9f7;
+    border-color: #f9f9f7;
+}
+
+button.btn:hover { opacity: 0.6; color: #fff; }
+
+button.btn:focus { outline: 0; opacity: 0.6; background: #de995e; color: #fff; }
+
+button.btn:active:focus, button.btn.active:focus { outline: 0; opacity: 0.6; background: #de995e; color: #fff; }
+
+#row-login, #row-registration {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.login-page, .registration-page {
+    background-color: #3c3c3c;
+}
+
+#restaurant-list-table th {
+    font-size: 15px;
+    text-align: center;
+    vertical-align: middle;
+    font-stretch: expanded;
+}
+
+#restaurant-list-table td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.inner-addon {
+    position: relative;
+}
+
+.inner-addon .glyphicon {
+    position: absolute;
+    padding: 15px;
+    height: 95%;
+    pointer-events: none;
+    color: #f89406;
+    -moz-border-radius: 0 0 4px 4px; -webkit-border-radius: 0 0 4px 4px; border-radius: 0 0 4px 4px;
+}
+
+.left-addon .glyphicon {
+    left: 0px;
+}
+
+.form-top {
+    overflow: hidden;
+    margin-top: 15px;
+    padding: 15px 15px 15px 15px;
+    text-align: center;
+}
+
+.form-top h1 {
+    font-family: 'Satisfy', cursive, bold;
+    margin-top: 5px;
+    color: white;
+}
+
+.form-top p{
+    color: white;
+}
+
+.form-top img {
+    margin-left: 30px;
+}
+
+.form-bottom {
+    padding: 15px 25px 50px 25px;
+    text-align: center;
+}
+
+.form-bottom form button.btn {
+    width: 40%;
+    font-family: 'Satisfy', cursive, bold;
+}
+
+.form-bottom-text {
+    padding-top: 20px;
+    color: white;
+    font-size: 16px;
+}
+
+.form-bottom label {
+    padding-top: 20px;
+    color: white;
+}
+
+.form-bottom-text a span {
+    font-style: oblique;
+    color: #f89406;
+}
