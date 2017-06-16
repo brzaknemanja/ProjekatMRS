@@ -18,6 +18,10 @@ public class RestaurantTable implements Serializable{
 
     @Column(nullable = false)
     @NotNull
+    private String name;
+
+    @Column(nullable = false)
+    @NotNull
     private Integer chairNumber;
 
     @Column(nullable = false)
@@ -33,7 +37,7 @@ public class RestaurantTable implements Serializable{
     private Double rotation;
 
     @Column(nullable = false)
-    @NotNull
+    @Enumerated(EnumType.STRING)
     private Segment segment;
 
     @ManyToOne
@@ -41,7 +45,8 @@ public class RestaurantTable implements Serializable{
 
     public RestaurantTable(){}
 
-    public RestaurantTable(Integer chairNumber, Double top, Double left, Double rotation, Segment segment) {
+    public RestaurantTable(String name,Integer chairNumber, Double top, Double left, Double rotation, Segment segment) {
+        this.name = name;
         this.chairNumber = chairNumber;
         this.top = top;
         this.left = left;
@@ -72,6 +77,14 @@ public class RestaurantTable implements Serializable{
     public Restaurant getRestaurant() {return restaurant;}
 
     public void setRestaurant(Restaurant restaurant) {this.restaurant = restaurant;}
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     @Override
     public boolean equals(Object o) {

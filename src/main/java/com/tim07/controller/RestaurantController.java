@@ -1,16 +1,14 @@
 package com.tim07.controller;
 
 import com.tim07.domain.DAO.RestaurantViewInListDAO;
-import com.tim07.domain.DTO.FoodDTO;
-import com.tim07.domain.DTO.ManagerRestaurantDTO;
-import com.tim07.domain.DTO.RestaurantManagerSystemViewDTO;
+import com.tim07.domain.DTO.*;
 import com.tim07.domain.DTO.registrationDTO.UserOrManagerRegistrationDTO;
 import com.tim07.domain.DTO.updateDTO.RestaurantRegistrationOrUpdateDTO;
-import com.tim07.domain.DTO.TablesDTO;
 import com.tim07.domain.Entity.*;
 import com.tim07.domain.Autentification.JwtUser;
 import com.tim07.domain.Enumeration.KitchenType;
 import com.tim07.domain.Enumeration.Segment;
+import com.tim07.domain.Enumeration.UserType;
 import com.tim07.service.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.Table;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -155,6 +154,33 @@ public class RestaurantController {
             headers.add("Authorization", userToken);
             RestaurantRegistrationOrUpdateDTO restaurantRegistrationOrUpdateDTO = convertRestaurantToDTO(managerRestaurant.getRestaurant());
             return new ResponseEntity<RestaurantRegistrationOrUpdateDTO>(restaurantRegistrationOrUpdateDTO, headers, HttpStatus.OK);
+        }
+        return new ResponseEntity<RestaurantRegistrationOrUpdateDTO>(HttpStatus.UNAUTHORIZED);
+    }
+
+    @RequestMapping(
+            value = "/getTables",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getDish(@RequestHeader("Authorization") String userToken){
+        JwtUser user = this.jwtService.getUser(userToken);
+
+        Employee employee = this.employeeService.findByUsername(user.getUsername());
+
+        if(employee != null && employee.getType() == UserType.Waiter) {
+
+            Restaurant restaurant = ((Waiter) employee).getRestaurant();
+            List<TableDTO> tableDTOList = new ArrayList<>();
+            List<RestaurantTable> tables = restaurant.getTables();
+            for(int i = 0; i < tables.size(); i++){
+                tableDTOList.add(convertTableToDTO(tables.get(i)));
+            }
+
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Authorization", userToken);
+
+            return new ResponseEntity<List<TableDTO>>(tableDTOList, headers, HttpStatus.OK);
         }
         return new ResponseEntity<RestaurantRegistrationOrUpdateDTO>(HttpStatus.UNAUTHORIZED);
     }
@@ -377,7 +403,7 @@ public class RestaurantController {
                     }
                     if(top > 250)
                         top -=250;
-                    RestaurantTable t = new RestaurantTable(table.getTables().get(i).getChairNumber(), top, left,
+                    RestaurantTable t = new RestaurantTable("",table.getTables().get(i).getChairNumber(), top, left,
                             table.getTables().get(i).getRotation(), segment);
                     t.setRestaurant(restaurant);
                     allTables.add(t);
@@ -392,6 +418,7 @@ public class RestaurantController {
         }
         return new ResponseEntity(HttpStatus.UNAUTHORIZED);
     }
+
 
     @RequestMapping(
             value = "/addDrink",
@@ -508,6 +535,11 @@ public class RestaurantController {
     private RestaurantManagerSystemViewDTO convertRestaurantToViewDTO(Restaurant restaurant){
         ModelMapper mapper = new ModelMapper();
         return mapper.map(restaurant, RestaurantManagerSystemViewDTO.class);
+    }
+
+    private TableDTO convertTableToDTO(RestaurantTable table){
+        ModelMapper mapper = new ModelMapper();
+        return mapper.map(table, TableDTO.class);
     }
 
     private FoodDTO convertDrinkToDTO(Drink drink){

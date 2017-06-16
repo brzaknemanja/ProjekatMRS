@@ -1,6 +1,7 @@
 package com.tim07.domain.DTO;
 
 import com.tim07.domain.Entity.DaySchedule;
+import com.tim07.domain.Entity.TableSegment;
 import com.tim07.domain.Enumeration.UserType;
 
 import java.util.List;
@@ -18,11 +19,12 @@ public class WaiterDTO {
     private Integer shoeSize;
     private List<DaySchedule> daySchedules;
     private Boolean firstLogin;
+    private List<TableSegment> tableSegments;
 
     public WaiterDTO() { }
 
     public WaiterDTO(String name, String lastname, String username, UserType type, String dateOfBirth, Integer dressSize,
-                     Integer shoeSize, List<DaySchedule> daySchedules, Boolean firstLogin) {
+                     Integer shoeSize, List<DaySchedule> daySchedules, Boolean firstLogin, List<TableSegment> tableSegments) {
         this.name = name;
         this.lastname = lastname;
         this.username = username;
@@ -32,6 +34,7 @@ public class WaiterDTO {
         this.shoeSize = shoeSize;
         this.daySchedules = daySchedules;
         this.firstLogin = firstLogin;
+        this.tableSegments = tableSegments;
     }
 
     public String getName() {
@@ -104,5 +107,13 @@ public class WaiterDTO {
 
     public void setFirstLogin(Boolean firstLogin) {
         this.firstLogin = firstLogin;
+    }
+
+    public List<TableSegment> getTableSegments() {
+        return tableSegments;
+    }
+
+    public void setTableSegments(List<TableSegment> tableSegments) {
+        this.tableSegments = tableSegments;
     }
 }

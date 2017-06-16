@@ -66,6 +66,7 @@ public class Restaurant {
     private List<Waiter> waiters;
 
     @OneToMany(mappedBy = "restaurant", fetch = FetchType.LAZY)
+    @JsonIgnoreProperties("restaurant")
     private List<RestaurantTable> tables;
 
     public Restaurant(){}

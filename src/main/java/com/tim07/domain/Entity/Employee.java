@@ -24,6 +24,7 @@ public abstract class Employee extends User implements Serializable{
     private Boolean firstLogin;
 
     public Employee() {
+        super();
         this.daySchedules = new ArrayList<>();
         AddSchedules();
         this.firstLogin = true;

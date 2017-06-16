@@ -20,7 +20,7 @@ public class RestaurantTableTest {
     @Before
     public void SetUp()
     {
-        restaurantTable = new RestaurantTable(4, 15.6, 18.9, 45.6, Segment.GardenNoSmoking);
+        restaurantTable = new RestaurantTable("",4, 15.6, 18.9, 45.6, Segment.GardenNoSmoking);
     }
 
     @Test

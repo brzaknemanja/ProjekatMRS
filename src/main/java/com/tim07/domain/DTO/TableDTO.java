@@ -1,22 +1,30 @@
 package com.tim07.domain.DTO;
 
+import com.tim07.domain.Enumeration.Segment;
+
 /**
  * Created by Katarina Cukurov on 22/04/2017.
  */
 public class TableDTO {
 
+    private String name;
     private Integer chairNumber;
     private Double top;
     private Double left;
     private Double rotation;
+    private Segment segment;
+
 
     public TableDTO(){}
 
-    public TableDTO(Integer chairNumber, Double top, Double left, Double rotation) {
+    public TableDTO(String name,Integer chairNumber, Double top, Double left, Double rotation,
+    Segment segment) {
+        this.name = name;
         this.chairNumber = chairNumber;
         this.top = top;
         this.left = left;
         this.rotation = rotation;
+        this.segment = segment;
     }
 
     public Integer getChairNumber() {
@@ -49,5 +57,21 @@ public class TableDTO {
 
     public void setRotation(Double rotation) {
         this.rotation = rotation;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Segment getSegment() {
+        return segment;
+    }
+
+    public void setSegment(Segment segment) {
+        this.segment = segment;
     }
 }

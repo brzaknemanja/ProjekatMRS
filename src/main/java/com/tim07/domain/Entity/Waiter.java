@@ -1,13 +1,14 @@
 package com.tim07.domain.Entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.tim07.domain.Enumeration.UserType;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by freez on 10-Apr-17.
@@ -30,7 +31,13 @@ public class Waiter extends Employee implements Serializable
     @ManyToOne
     private Restaurant restaurant;
 
-    public Waiter() { }
+    @OneToMany(mappedBy = "waiter", fetch = FetchType.EAGER)
+    @JsonIgnoreProperties("waiter")
+    private List<TableSegment> tableSegments;
+
+    public Waiter() {
+        tableSegments = new ArrayList<>();
+    }
 
     public Waiter(String username, String password, UserType type, String name, String lastname,
                   String dateOfBirdth, int dressSize, int shoeSize) {
@@ -38,6 +45,7 @@ public class Waiter extends Employee implements Serializable
         this.dateOfBirth = dateOfBirdth;
         this.dressSize = dressSize;
         this.shoeSize = shoeSize;
+        this.tableSegments = new ArrayList<>();
     }
 
     public Waiter(String username, String password, UserType type, String name, String lastname,
@@ -47,6 +55,7 @@ public class Waiter extends Employee implements Serializable
         this.dressSize = dressSize;
         this.shoeSize = shoeSize;
         this.restaurant = restaurant;
+        this.tableSegments = new ArrayList<>();
     }
 
     public String getDateOfBirth() {
@@ -76,6 +85,14 @@ public class Waiter extends Employee implements Serializable
     public Restaurant getRestaurant() { return restaurant;}
 
     public void setRestaurant(Restaurant restaurant) {this.restaurant = restaurant;}
+
+    public List<TableSegment> getTableSegments() {
+        return tableSegments;
+    }
+
+    public void setTableSegments(List<TableSegment> tableSegments) {
+        this.tableSegments = tableSegments;
+    }
 
     @Override
     public boolean equals(Object regUserObj) {

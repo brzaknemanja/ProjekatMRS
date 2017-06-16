@@ -22,7 +22,7 @@ public class TableRepositoryTest {
     @Before
     public void setUp()
     {
-        this.tableRepository.save(new RestaurantTable(4,18.6,45.2,85.6, Segment.GardenNoSmoking));
-        this.tableRepository.save(new RestaurantTable(6,85.6,56.2,120.5,Segment.InsideNoSmoking));
+        this.tableRepository.save(new RestaurantTable("",4,18.6,45.2,85.6, Segment.GardenNoSmoking));
+        this.tableRepository.save(new RestaurantTable("",6,85.6,56.2,120.5,Segment.InsideNoSmoking));
     }
 }

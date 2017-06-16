@@ -31,10 +31,16 @@ function getCurrentUser(){
                 if(currentUser.firstLogin && document.URL.indexOf("profile") == -1)
                 {
                     changePassword(currentUser);
+                    console.log(currentUser);
                 }
                 else if(currentUser.firstLogin && document.URL.indexOf("profile") != -1)
                 {
                     window.location.replace("home.html");
+
+                }
+                else if(document.URL.indexOf("home.html") != -1)
+                {
+                    home(currentUser);
                 }
                 else
                 {
