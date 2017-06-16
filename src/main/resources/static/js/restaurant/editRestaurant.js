@@ -25,7 +25,7 @@ function getRestaurant(){
         },
         error: function (response, textStatus) {
             if(response.status != 200)
-                getToastr("Nemate pravo pristupa!");
+                getToastr("Nemate pravo pristupa 1!");
             else{
                 window.location.replace("home.html");
             }

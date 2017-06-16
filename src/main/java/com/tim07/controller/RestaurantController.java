@@ -48,6 +48,9 @@ public class RestaurantController {
     @Autowired
     private RegisteredUserService registeredUserService;
 
+    @Autowired
+    private EmployeeService employeeService;
+
     @RequestMapping(
             value = "/getRestaurant",
             method = RequestMethod.GET,
@@ -57,10 +60,43 @@ public class RestaurantController {
         JwtUser user = this.jwtService.getUser(userToken);
         ManagerRestaurant managerRestaurant = this.managerRestaurantService.getByUsername(user.getUsername());
 
+        System.out.println(managerRestaurant);
+
         if(managerRestaurant != null){
             HttpHeaders headers = new HttpHeaders();
             headers.add("Authorization", userToken);
             RestaurantRegistrationOrUpdateDTO restaurantRegistrationOrUpdateDTO = convertRestaurantToDTO(managerRestaurant.getRestaurant());
+
+            return new ResponseEntity<RestaurantRegistrationOrUpdateDTO>(restaurantRegistrationOrUpdateDTO, headers, HttpStatus.OK);
+        }
+        return new ResponseEntity<ManagerRestaurant>(HttpStatus.NOT_FOUND);
+    }
+
+    @RequestMapping(
+            value = "/getEmployeeRestaurant",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<?> getEmployeeRestaurant(@RequestHeader("Authorization") String userToken){
+        JwtUser user = this.jwtService.getUser(userToken);
+        Employee employee = this.employeeService.findByUsername(user.getUsername());
+
+        if(employee != null){
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Authorization", userToken);
+            RestaurantRegistrationOrUpdateDTO restaurantRegistrationOrUpdateDTO = null;
+
+            switch (employee.getType()) {
+                case Waiter:
+                    restaurantRegistrationOrUpdateDTO = convertRestaurantToDTO(((Waiter) employee).getRestaurant());
+                    break;
+                case Barman:
+                    restaurantRegistrationOrUpdateDTO = convertRestaurantToDTO(((Barman) employee).getRestaurant());
+                    break;
+                case Chef:
+                    restaurantRegistrationOrUpdateDTO = convertRestaurantToDTO(((Chef) employee).getRestaurant());
+                    break;
+            }
 
             return new ResponseEntity<RestaurantRegistrationOrUpdateDTO>(restaurantRegistrationOrUpdateDTO, headers, HttpStatus.OK);
         }
@@ -131,10 +167,9 @@ public class RestaurantController {
     public ResponseEntity<?> getDrinks(@RequestHeader("Authorization") String userToken, @RequestBody String imeRestorana){
 
         JwtUser user = this.jwtService.getUser(userToken);
-        ManagerRestaurant managerRestaurant = this.managerRestaurantService.getByUsername(user.getUsername());
+        Restaurant restaurant = this.restaurantService.getByName(imeRestorana);
 
-        if(managerRestaurant != null) {
-            Restaurant restaurant = this.restaurantService.getByName(imeRestorana);
+        if(restaurant != null) {
             List<Drink> drinks = restaurant.getDrinks();
             List<FoodDTO> foodDTOS = new ArrayList<>();
             for(int i = 0; i < drinks.size(); i++){
@@ -156,10 +191,9 @@ public class RestaurantController {
     public ResponseEntity<?> getDish(@RequestHeader("Authorization") String userToken, @RequestBody String imeRestorana){
         JwtUser user = this.jwtService.getUser(userToken);
 
-        ManagerRestaurant managerRestaurant = this.managerRestaurantService.getByUsername(user.getUsername());
+        Restaurant restaurant = this.restaurantService.getByName(imeRestorana);
 
-        if(managerRestaurant != null) {
-            Restaurant restaurant = this.restaurantService.getByName(imeRestorana);
+        if(restaurant != null) {
             List<Dish> dishes = restaurant.getDishes();
             List<FoodDTO> foodDTOS = new ArrayList<>();
             for(int i = 0; i < dishes.size(); i++){

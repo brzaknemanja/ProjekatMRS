@@ -40,6 +40,15 @@ public class Waiter extends Employee implements Serializable
         this.shoeSize = shoeSize;
     }
 
+    public Waiter(String username, String password, UserType type, String name, String lastname,
+                  String dateOfBirdth, int dressSize, int shoeSize, Restaurant restaurant) {
+        super(name, lastname, username, password, type);
+        this.dateOfBirth = dateOfBirdth;
+        this.dressSize = dressSize;
+        this.shoeSize = shoeSize;
+        this.restaurant = restaurant;
+    }
+
     public String getDateOfBirth() {
         return dateOfBirth;
     }

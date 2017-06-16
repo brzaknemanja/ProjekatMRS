@@ -32,6 +32,14 @@ public class ManagerRestaurant extends User implements Serializable {
         this.email = email;
     }
 
+    public ManagerRestaurant(String username, String password, UserType type, String name, String lastname, String email, Restaurant restaurant)
+    {
+        super(name, lastname, username, password, type);
+        this.email = email;
+        this.restaurant = restaurant;
+    }
+
+
     public String getEmail() { return this.email; }
 
     public void setEmail(String email) { this.email = email; }
