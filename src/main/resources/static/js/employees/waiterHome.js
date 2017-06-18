@@ -33,7 +33,7 @@ function showTables(tables) {
         tables.forEach(function (table) {
 
             if(table.segment == element.segment){
-                $("#" + element.segment).append("<tr><td>"+ table.name +"</td><td>" + table.chairNumber +"</td><td><button type='button' onclick=\"reserve('" + table.name + "')\"'>Rezervisi</button></td></tr>");
+                $("#" + element.segment).append("<tr><td>"+ table.name +"</td><td>" + table.chairNumber +"</td><td><button type='button' onclick=\"reserve('" + table.id + "')\"'>Rezervisi</button></td></tr>");
             }
 
         });
@@ -42,6 +42,32 @@ function showTables(tables) {
 }
 
 function reserve(table) {
-    console.log(table);
 
+    var data = {
+        "orderItems" : [
+            {
+                "name" : "some drink",
+                "price" : 300,
+                "type" : "Drink",
+                "amount" : 2
+            }
+        ]
+    };
+
+    $.ajax({
+        url: "/tableOrder/create",
+        type: "POST",
+        contentType: "application/json",
+        dataType: "json",
+        data: JSON.stringify(data),
+        beforeSend: function(request){
+            request.setRequestHeader("Authorization", localStorage.getItem("currentUserToken"));
+        },
+        success: function(data, textStatus, response){
+            console.log(data);
+        },
+        error: function(response, textStatus){
+            getToastr("", "Dodavanje porudzbine neuspešno! \nStatus: " + response.status, 3);
+        }
+    });
 }

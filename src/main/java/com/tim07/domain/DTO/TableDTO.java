@@ -7,6 +7,7 @@ import com.tim07.domain.Enumeration.Segment;
  */
 public class TableDTO {
 
+    private Long id;
     private String name;
     private Integer chairNumber;
     private Double top;
@@ -17,8 +18,9 @@ public class TableDTO {
 
     public TableDTO(){}
 
-    public TableDTO(String name,Integer chairNumber, Double top, Double left, Double rotation,
+    public TableDTO(Long id,String name,Integer chairNumber, Double top, Double left, Double rotation,
     Segment segment) {
+        this.id = id;
         this.name = name;
         this.chairNumber = chairNumber;
         this.top = top;
@@ -37,6 +39,14 @@ public class TableDTO {
 
     public Double getTop() {
         return top;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public void setTop(Double top) {

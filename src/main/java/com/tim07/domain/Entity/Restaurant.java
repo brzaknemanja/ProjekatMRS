@@ -69,6 +69,10 @@ public class Restaurant {
     @JsonIgnoreProperties("restaurant")
     private List<RestaurantTable> tables;
 
+    @OneToMany(mappedBy = "restaurant", fetch = FetchType.LAZY)
+    @JsonIgnoreProperties("restaurant")
+    private List<TableOrder> tableOrders;
+
     public Restaurant(){}
 
     public Restaurant(String name, String description, String street, String city, KitchenType kitchenType){
@@ -84,6 +88,7 @@ public class Restaurant {
         this.dishes = new ArrayList<>();
         this.drinks = new ArrayList<>();
         this.tables = new ArrayList<>();
+        this.tableOrders = new ArrayList<>();
     }
 
     public String getName(){ return name; }
@@ -121,6 +126,14 @@ public class Restaurant {
     public List<RestaurantTable> getTables() {return tables;}
 
     public void setTables(List<RestaurantTable> tables) {this.tables = tables;}
+
+    public List<TableOrder> getTableOrders() {
+        return tableOrders;
+    }
+
+    public void setTableOrders(List<TableOrder> tableOrders) {
+        this.tableOrders = tableOrders;
+    }
 
     public String getStreet() {return street;}
 

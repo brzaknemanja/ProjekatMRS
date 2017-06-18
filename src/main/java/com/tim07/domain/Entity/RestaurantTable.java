@@ -54,6 +54,10 @@ public class RestaurantTable implements Serializable{
         this.segment = segment;
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public Integer getChairNumber() { return chairNumber;}
 
     public void setChairNumber(Integer chairNumber) {this.chairNumber = chairNumber;}
