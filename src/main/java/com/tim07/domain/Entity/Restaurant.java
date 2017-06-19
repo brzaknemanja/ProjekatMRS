@@ -44,9 +44,11 @@ public class Restaurant {
     private KitchenType kitchenType;
 
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("restaurant")
     private List<Dish> dishes;
 
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("restaurant")
     private List<Drink> drinks;
 
     @OneToMany(mappedBy = "restaurant", fetch = FetchType.LAZY)

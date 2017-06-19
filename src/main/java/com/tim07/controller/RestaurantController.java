@@ -50,6 +50,9 @@ public class RestaurantController {
     @Autowired
     private EmployeeService employeeService;
 
+    @Autowired
+    private WaiterService waiterService;
+
     @RequestMapping(
             value = "/getRestaurant",
             method = RequestMethod.GET,
@@ -231,6 +234,57 @@ public class RestaurantController {
             return new ResponseEntity<List<FoodDTO>>(foodDTOS, headers, HttpStatus.OK);
         }
         return new ResponseEntity<RestaurantRegistrationOrUpdateDTO>(HttpStatus.UNAUTHORIZED);
+    }
+
+    @RequestMapping(
+            value = "/getWaiterDishes",
+            method = RequestMethod.PUT,
+            consumes = MediaType.TEXT_PLAIN_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getWaiterDish(@RequestHeader("Authorization") String userToken){
+        JwtUser user = this.jwtService.getUser(userToken);
+
+        Waiter waiter = this.waiterService.getByUsername(user.getUsername());
+
+        if(waiter != null) {
+            Restaurant restaurant = waiter.getRestaurant();
+            List<Dish> dishes = restaurant.getDishes();
+            List<FoodDTO> foodDTOS = new ArrayList<>();
+            for(int i = 0; i < dishes.size(); i++){
+                foodDTOS.add(convertDishToDTO(dishes.get(i)));
+            }
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Authorization", userToken);
+
+            return new ResponseEntity<List<FoodDTO>>(foodDTOS, headers, HttpStatus.OK);
+        }
+        return new ResponseEntity<RestaurantRegistrationOrUpdateDTO>(HttpStatus.UNAUTHORIZED);
+    }
+
+    @RequestMapping(
+            value = "/getWaiterDrinks",
+            method = RequestMethod.PUT,
+            consumes = MediaType.TEXT_PLAIN_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getDrinks(@RequestHeader("Authorization") String userToken){
+
+        JwtUser user = this.jwtService.getUser(userToken);
+
+        Waiter waiter = this.waiterService.getByUsername(user.getUsername());
+
+        if(waiter != null) {
+            Restaurant restaurant = waiter.getRestaurant();
+            List<Drink> drinks = restaurant.getDrinks();
+            List<FoodDTO> foodDTOS = new ArrayList<>();
+            for(int i = 0; i < drinks.size(); i++){
+                foodDTOS.add(convertDrinkToDTO(drinks.get(i)));
+            }
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Authorization", userToken);
+
+            return new ResponseEntity<>(foodDTOS, headers, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
 
     @RequestMapping(

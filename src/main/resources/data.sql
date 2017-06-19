@@ -23,7 +23,9 @@ insert into restaurant_table(id,name,chair_number,left,top,rotation,segment,rest
 insert into restaurant_table(id,name,chair_number,left,top,rotation,segment,restaurant_id) values (2,'P2',4,0,0,0,'InsideSmoking', 20);
 insert into restaurant_table(id,name,chair_number,left,top,rotation,segment,restaurant_id) values (3,'B1',4,0,0,0,'GardenSmoking', 20);
 
-
+insert into dish(id,name,description,price,restaurant_id) values (1,'Pizza','Mala pizza(30cm)',150,20);
+insert into dish(id,name,description,price,restaurant_id) values (2,'Pizza','Srednja pizza(40cm)',250,20);
+insert into drink(id,name,description,price,restaurant_id) values(3,'Pivo','0.5l',150,20);
 
 insert into table_segment(id, waiter_id, segment) values (1,17,'InsideSmoking');
 insert into table_segment(id, waiter_id, segment) values (2,17,'GardenSmoking');

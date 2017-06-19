@@ -1,6 +1,7 @@
 package com.tim07.domain.DTO;
 
 import com.tim07.domain.Entity.DaySchedule;
+import com.tim07.domain.Entity.Restaurant;
 import com.tim07.domain.Entity.TableSegment;
 import com.tim07.domain.Enumeration.UserType;
 
@@ -116,4 +117,5 @@ public class WaiterDTO {
     public void setTableSegments(List<TableSegment> tableSegments) {
         this.tableSegments = tableSegments;
     }
+
 }
