@@ -14,5 +14,6 @@ function home(currentUser) {
 
     if(currentUser.type == "Waiter"){
         getTables();
+        getTableOrders();
     }
 }

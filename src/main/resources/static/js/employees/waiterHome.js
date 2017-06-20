@@ -35,6 +35,8 @@ $(document).ready(function(){
             });
         });
     });
+
+
 });
 
 
@@ -221,6 +223,7 @@ function finishOrder() {
             tableOrder.tableId = null;
             $("#orderTable tbody tr").remove();;
             console.log("orders " + tableOrder);
+            getTableOrders();
         },
         error: function(response, textStatus){
             getToastr("", "Dodavanje porudzbine neuspešno! \nStatus: " + response.status, 3);
@@ -228,6 +231,8 @@ function finishOrder() {
     });
 
     $("#orderCollapse").collapse("hide");
+
+
 }
 
 
@@ -259,4 +264,50 @@ function deleteRow() {
     var par = $(this).parent().parent(); //tr
     par.remove();
     console.log("sagasasg");
+}
+
+
+function getTableOrders() {
+
+    $.ajax({
+        url: "/tableOrder/getWaiterOrders",
+        type: "GET",
+        contentType: "application/json",
+        dataType: "json",
+        beforeSend: function(request){
+            request.setRequestHeader("Authorization", localStorage.getItem("currentUserToken"));
+        },
+        success: function(data, textStatus, response){
+            showTableOrders(data);
+        },
+        error: function(response, textStatus){
+            getToastr("", "Dobavljanje narudzbina neuspešno! \nStatus: " + response.status, 3);
+        }
+    });
+}
+
+function showTableOrders(tableOrders) {
+
+    $("#tableOrders").empty();
+
+    $("#tableOrders").append("<h1>Table orders:</h1>");
+
+    for(var i = 0; i < tableOrders.length; i++){
+
+        $("#tableOrders").append("<h2>Table: " + tableOrders[i].tableName + "</h2>")
+        var table = "<table id='orders-table-" + i + "' class='table table-bordered'>" +
+            "<thead> <tr> <th>Name</th> <th>Price</th> <th>Type</th> <th>Amount</th> <th>Remove</th> </tr> </thead><tbody></tbody> </table>";
+
+        $("#tableOrders").append(table);
+
+        var orderItems = tableOrders[i].orderItems;
+
+        for(var j = 0; j < orderItems.length; j++){
+            var row = '<tr><td>' + orderItems[j].name + '</td><td>' +
+                orderItems[j].price + '</td><td>' + orderItems[j].type + '</td><td>' + orderItems[j].amount +
+                "</td><td><button type='button' class='remove-order-item'>Remove</button> </td></tr>";
+            $("#orders-table-" + i + " tbody").append(row);
+        }
+    }
+
 }

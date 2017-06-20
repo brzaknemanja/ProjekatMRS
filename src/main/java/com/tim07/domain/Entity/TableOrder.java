@@ -1,5 +1,6 @@
 package com.tim07.domain.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -20,9 +21,11 @@ public class TableOrder {
     private List<OrderItem> orderItems;
 
     @ManyToOne
+    @JsonIgnore
     private Restaurant restaurant;
 
     @ManyToOne
+    @JsonIgnore
     private RestaurantTable restaurantTable;
 
     public TableOrder() {}

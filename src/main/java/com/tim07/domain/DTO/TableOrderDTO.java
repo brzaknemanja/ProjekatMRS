@@ -9,6 +9,7 @@ public class TableOrderDTO {
 
     private List<OrderItemDTO> orderItems;
     private Long tableId;
+    private String tableName;
 
     public TableOrderDTO() {}
 
@@ -30,5 +31,13 @@ public class TableOrderDTO {
 
     public void setTableId(Long tableId) {
         this.tableId = tableId;
+    }
+
+    public String getTableName() {
+        return tableName;
+    }
+
+    public void setTableName(String tableName) {
+        this.tableName = tableName;
     }
 }
