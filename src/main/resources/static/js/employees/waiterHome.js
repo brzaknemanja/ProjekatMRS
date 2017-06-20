@@ -158,8 +158,11 @@ function populateDrinks() {
             $("#drinksTable tbody tr").remove();
             for(var i = 0; i < data.length; i++){
                 var red = '<tr><td>' + data[i].name + '</td><td>' +
-                    data[i].description + '</td><td>' + data[i].price + '</td></tr>';
+                    data[i].description + '</td><td>' + data[i].price + '</td>'
+                    +  "<td><form><input type='text' id = '"+ i +"-amount-drink'></form></td>"
+                    +   "<td><button id = '"+ i +"-btn-drink'>Add</button></td></tr>";
                 $("#drinksTable").append(red);
+                $("#" + i +"-btn-drink").click({param1: data[i], param2: i},addDrink);
             }
             localStorage.setItem("currentUserToken",response.getResponseHeader("Authorization"));
         },
@@ -185,12 +188,33 @@ function addDish(event) {
     var orderItem = {
         "name" : dish.name,
         "price" : dish.price,
-        "type" : "Food",
+        "type" : "Dish",
         "amount" : amount
     }
 
     refreshOrder(orderItem);
 
+}
+
+function addDrink(event){
+
+    var drink = event.data.param1;
+    var amount = parseInt($("#" + event.data.param2 + "-amount-drink").val());
+
+    if(isNaN(amount))
+    {
+        getToastr("", "Amount must be number!");
+        return;
+    }
+
+    var orderItem = {
+        "name" : drink.name,
+        "price" : drink.price,
+        "type" : "Drink",
+        "amount" : amount
+    }
+
+    refreshOrder(orderItem);
 }
 
 function refreshOrder(orderItem) {
