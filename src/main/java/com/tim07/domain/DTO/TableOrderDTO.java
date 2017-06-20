@@ -7,7 +7,8 @@ import java.util.List;
  */
 public class TableOrderDTO {
 
-    List<OrderItemDTO> orderItems;
+    private List<OrderItemDTO> orderItems;
+    private Long tableId;
 
     public TableOrderDTO() {}
 
@@ -21,5 +22,13 @@ public class TableOrderDTO {
 
     public void setOrderItems(List<OrderItemDTO> orderItems) {
         this.orderItems = orderItems;
+    }
+
+    public Long getTableId() {
+        return tableId;
+    }
+
+    public void setTableId(Long tableId) {
+        this.tableId = tableId;
     }
 }

@@ -1,10 +1,12 @@
 package com.tim07.domain.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.tim07.domain.Enumeration.Segment;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by Katarina Cukurov on 22/04/2017.
@@ -42,6 +44,10 @@ public class RestaurantTable implements Serializable{
 
     @ManyToOne
     private Restaurant restaurant;
+
+    @OneToMany(mappedBy = "restaurantTable", fetch = FetchType.LAZY)
+    @JsonIgnoreProperties("restaurantTable")
+    private List<TableOrder> tableOrderList;
 
     public RestaurantTable(){}
 
@@ -88,6 +94,14 @@ public class RestaurantTable implements Serializable{
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<TableOrder> getTableOrderList() {
+        return tableOrderList;
+    }
+
+    public void setTableOrderList(List<TableOrder> tableOrderList) {
+        this.tableOrderList = tableOrderList;
     }
 
     @Override

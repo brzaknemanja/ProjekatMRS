@@ -3,7 +3,8 @@
  */
 
 var tableOrder = {
-    "orderItems" : []
+    "orderItems" : [],
+    "tableId" : null
 };
 
 $(document).ready(function(){
@@ -27,6 +28,10 @@ $(document).ready(function(){
 
             $("#finish-order").click(function () {
                finishOrder();
+            });
+
+            $("#close-order").click(function () {
+                closeOrder();
             });
         });
     });
@@ -65,7 +70,7 @@ function showTables(tables) {
         tables.forEach(function (table) {
 
             if(table.segment == element.segment){
-                $("#" + element.segment).append("<tr><td>"+ table.name +"</td><td>" + table.chairNumber +"</td><td><button type='button' onclick=\"openOrderWindow('" + table.id + "')\"'>Order</button></td></tr>");
+                $("#" + element.segment).append("<tr><td>"+ table.name +"</td><td>" + table.chairNumber +"</td><td><button type='button' onclick=\"openOrderWindow('" + table.id + "','"+ table.name +"')\">Order</button></td></tr>");
             }
 
         });
@@ -73,43 +78,13 @@ function showTables(tables) {
     });
 }
 
-function openOrderWindow(table) {
+function openOrderWindow(tableId, tableName) {
 
     $("#orderCollapse").collapse("show");
 
+    $("#table-order-id").text(tableName);
 
-
-
-
-
-
-   /*var data = {
-        "orderItems" : [
-            {
-                "name" : "some drink",
-                "price" : 300,
-                "type" : "Drink",
-                "amount" : 2
-            }
-        ]
-    };*/
-
-    /*$.ajax({
-        url: "/tableOrder/create",
-        type: "POST",
-        contentType: "application/json",
-        dataType: "json",
-        data: JSON.stringify(data),
-        beforeSend: function(request){
-            request.setRequestHeader("Authorization", localStorage.getItem("currentUserToken"));
-        },
-        success: function(data, textStatus, response){
-            console.log(data);
-        },
-        error: function(response, textStatus){
-            getToastr("", "Dodavanje porudzbine neuspešno! \nStatus: " + response.status, 3);
-        }
-    });*/
+    tableOrder.tableId = tableId;
 
 }
 
@@ -221,13 +196,15 @@ function refreshOrder(orderItem) {
 
     var row = '<tr><td>' + orderItem.name + '</td><td>' +
         orderItem.price + '</td><td>' + orderItem.type + '</td><td>' + orderItem.amount +
-        '</td></tr>';
+        "</td><td><button type='button' class='remove-order-item'>Remove</button> </td></tr>";
     $("#orderTable tbody").append(row);
+    $(".remove-order-item").bind('click',deleteRow);
 
-    tableOrder.orderItems.push(orderItem);
 }
 
 function finishOrder() {
+
+    collectTableData();
 
     $.ajax({
         url: "/tableOrder/create",
@@ -241,6 +218,7 @@ function finishOrder() {
         success: function(data, textStatus, response){
             console.log(data);
             tableOrder.orderItems = [];
+            tableOrder.tableId = null;
             $("#orderTable tbody tr").remove();;
             console.log("orders " + tableOrder);
         },
@@ -250,4 +228,35 @@ function finishOrder() {
     });
 
     $("#orderCollapse").collapse("hide");
+}
+
+
+function collectTableData() {
+    $("#orderTable > tbody > tr").each(function()
+    {
+        var orderItem = new Object();
+        orderItem.name = $(this).children("td:nth-child(1)").text();
+        orderItem.price = $(this).children("td:nth-child(2)").text();
+        orderItem.type = $(this).children("td:nth-child(3)").text();
+        orderItem.amount = $(this).children("td:nth-child(4)").text();
+        tableOrder.orderItems.push(orderItem);
+        console.log(orderItem);
+
+    });
+
+
+
+}
+
+function closeOrder() {
+    tableOrder.orderItems = [];
+    tableOrder.tableId = null;
+    $("#orderTable tbody tr").remove();
+    $("#orderCollapse").collapse("hide");
+}
+
+function deleteRow() {
+    var par = $(this).parent().parent(); //tr
+    par.remove();
+    console.log("sagasasg");
 }

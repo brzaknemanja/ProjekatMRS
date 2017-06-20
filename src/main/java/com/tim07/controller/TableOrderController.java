@@ -56,7 +56,7 @@ public class TableOrderController {
 
             Restaurant restaurant = waiter.getRestaurant();
 
-            TableOrder tableOrder = tableOrderService.createOrder(tableOrderDTO.getOrderItems(),restaurant);
+            TableOrder tableOrder = tableOrderService.createOrder(tableOrderDTO.getOrderItems(),restaurant, tableOrderDTO.getTableId());
 
 
             return new ResponseEntity<>(convertTableOrderToDTO(tableOrder),HttpStatus.OK);

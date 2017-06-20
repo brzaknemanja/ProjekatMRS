@@ -22,11 +22,15 @@ public class TableOrder {
     @ManyToOne
     private Restaurant restaurant;
 
+    @ManyToOne
+    private RestaurantTable restaurantTable;
+
     public TableOrder() {}
 
-    public TableOrder(List<OrderItem> orderItems, Restaurant restaurant) {
+    public TableOrder(List<OrderItem> orderItems, Restaurant restaurant, RestaurantTable restaurantTable) {
         this.orderItems = orderItems;
         this.restaurant = restaurant;
+        this.restaurantTable = restaurantTable;
     }
 
     public List<OrderItem> getOrderItems() {
@@ -43,5 +47,13 @@ public class TableOrder {
 
     public void setRestaurant(Restaurant restaurant) {
         this.restaurant = restaurant;
+    }
+
+    public RestaurantTable getRestaurantTable() {
+        return restaurantTable;
+    }
+
+    public void setRestaurantTable(RestaurantTable restaurantTable) {
+        this.restaurantTable = restaurantTable;
     }
 }

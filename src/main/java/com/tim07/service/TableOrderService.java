@@ -12,5 +12,5 @@ import java.util.List;
  */
 public interface TableOrderService {
 
-    TableOrder createOrder(List<OrderItemDTO> orderItems, Restaurant restaurant);
+    TableOrder createOrder(List<OrderItemDTO> orderItems, Restaurant restaurant, Long tableId);
 }
