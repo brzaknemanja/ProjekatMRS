@@ -9,4 +9,6 @@ import org.springframework.data.repository.Repository;
 public interface ChefRepository extends Repository<Chef, Long> {
 
     void save(Chef chef);
+
+    Chef findByUsername(String username);
 }

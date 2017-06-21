@@ -14,4 +14,6 @@ public interface ChefService {
     void updateLastname(Chef chef);
 
     void updatePassword(Chef chef);
+
+    Chef findByUsername(String string);
 }

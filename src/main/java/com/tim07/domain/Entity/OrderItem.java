@@ -1,6 +1,7 @@
 package com.tim07.domain.Entity;
 
 import com.tim07.domain.Enumeration.ItemType;
+import com.tim07.domain.Enumeration.OrderItemState;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -31,8 +32,9 @@ public class OrderItem {
     @NotNull
     private Integer amount;
 
-    @Column(columnDefinition = "boolean default false",nullable = false)
-    private boolean finished;
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private OrderItemState state;
 
     @ManyToOne
     private TableOrder tableOrder;
@@ -44,7 +46,7 @@ public class OrderItem {
         this.name = name;
         this.price = price;
         this.type = type;
-        this.finished = false;
+        this.state = OrderItemState.Waiting;
         this.amount = amount;
         this.tableOrder = tableOrder;
     }
@@ -73,12 +75,12 @@ public class OrderItem {
         this.type = type;
     }
 
-    public boolean isFinished() {
-        return finished;
+    public OrderItemState getState() {
+        return state;
     }
 
-    public void setFinished(boolean finished) {
-        this.finished = finished;
+    public void setState(OrderItemState state) {
+        this.state = state;
     }
 
     public TableOrder getTableOrder() {

@@ -12,11 +12,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class ChefServiceImpl implements ChefService{
 
-    @Autowired
-    ChefRepository chefRepository;
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private ChefRepository chefRepository;
 
     @Override
     public boolean createNewChef(Chef chef)
@@ -33,6 +34,9 @@ public class ChefServiceImpl implements ChefService{
     public void updateName(Chef chef) {
         this.chefRepository.save(chef);
     }
+
+    @Override
+    public Chef findByUsername(String username){return this.chefRepository.findByUsername(username); }
 
     @Override
     public void updateLastname(Chef chef) {

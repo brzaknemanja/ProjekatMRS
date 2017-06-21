@@ -33,6 +33,9 @@ public class TableOrderController {
     private WaiterService waiterService;
 
     @Autowired
+    private ChefService chefService;
+
+    @Autowired
     private JwtService jwtService;
 
     @RequestMapping(
@@ -94,9 +97,46 @@ public class TableOrderController {
         return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
 
+    @RequestMapping(
+            value = "getChefDishes",
+            method = RequestMethod.GET,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<List<OrderItemDTO>> getChefDishes(@RequestHeader("Authorization") String userToken)
+    {
+
+        JwtUser user = this.jwtService.getUser(userToken);
+
+        Chef chef = this.chefService.findByUsername(user.getUsername());
+
+        if (chef != null){
+
+            Restaurant restaurant = chef.getRestaurant();
+            List<OrderItemDTO> orderItemDTOS = new ArrayList<>();
+
+            for(TableOrder order : restaurant.getTableOrders()){
+                for(OrderItem item : order.getOrderItems()){
+                    if(item.getType() == ItemType.Dish)
+                        orderItemDTOS.add(converOrderItemToDTO(item));
+                }
+            }
+
+            return new ResponseEntity<>(orderItemDTOS,HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+    }
+
     private TableOrderDTO convertTableOrderToDTO(TableOrder order){
         ModelMapper mapper = new ModelMapper();
         return mapper.map(order, TableOrderDTO.class);
+    }
+
+    private OrderItemDTO converOrderItemToDTO(OrderItem item)
+    {
+        ModelMapper mapper = new ModelMapper();
+        return mapper.map(item, OrderItemDTO.class);
     }
 
 }

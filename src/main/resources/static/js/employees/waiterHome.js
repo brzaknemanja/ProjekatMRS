@@ -296,7 +296,7 @@ function showTableOrders(tableOrders) {
 
         $("#tableOrders").append("<h2>Table: " + tableOrders[i].tableName + "</h2>")
         var table = "<table id='orders-table-" + i + "' class='table table-bordered'>" +
-            "<thead> <tr> <th>Name</th> <th>Price</th> <th>Type</th> <th>Amount</th> <th>Remove</th> </tr> </thead><tbody></tbody> </table>";
+            "<thead> <tr> <th>Name</th> <th>Price</th> <th>Type</th> <th>Amount</th> <th>State</th> <th>Remove</th> </tr> </thead><tbody></tbody> </table>";
 
         $("#tableOrders").append(table);
 
@@ -305,6 +305,7 @@ function showTableOrders(tableOrders) {
         for(var j = 0; j < orderItems.length; j++){
             var row = '<tr><td>' + orderItems[j].name + '</td><td>' +
                 orderItems[j].price + '</td><td>' + orderItems[j].type + '</td><td>' + orderItems[j].amount +
+                    "</td><td>" + orderItems[j].state +
                 "</td><td><button type='button' class='remove-order-item'>Remove</button> </td></tr>";
             $("#orders-table-" + i + " tbody").append(row);
         }

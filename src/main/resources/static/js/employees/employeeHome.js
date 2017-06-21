@@ -16,4 +16,7 @@ function home(currentUser) {
         getTables();
         getTableOrders();
     }
+    else if(currentUser.type == "Chef"){
+        getDishOrders();
+    }
 }

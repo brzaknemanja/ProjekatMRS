@@ -1,6 +1,7 @@
 package com.tim07.domain.DTO;
 
 import com.tim07.domain.Enumeration.ItemType;
+import com.tim07.domain.Enumeration.OrderItemState;
 
 /**
  * Created by brzak on 18.6.17..
@@ -15,16 +16,16 @@ public class OrderItemDTO {
 
     private Integer amount;
 
-    private boolean finished;
+    private OrderItemState state;
 
     public OrderItemDTO() {}
 
-    public OrderItemDTO(String name, Double price, ItemType type, Integer amount) {
+    public OrderItemDTO(String name, Double price, ItemType type, Integer amount, OrderItemState state) {
         this.name = name;
         this.price = price;
         this.type = type;
         this.amount = amount;
-        this.finished = false;
+        this.state = state;
     }
 
     public String getName() {
@@ -59,11 +60,11 @@ public class OrderItemDTO {
         this.amount = amount;
     }
 
-    public boolean isFinished() {
-        return finished;
+    public OrderItemState getState() {
+        return state;
     }
 
-    public void setFinished(boolean finished) {
-        this.finished = finished;
+    public void setState(OrderItemState state) {
+        this.state = state;
     }
 }
