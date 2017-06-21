@@ -5,6 +5,7 @@ import com.tim07.domain.DTO.OrderItemDTO;
 import com.tim07.domain.DTO.TableOrderDTO;
 import com.tim07.domain.Entity.*;
 import com.tim07.domain.Enumeration.ItemType;
+import com.tim07.domain.Enumeration.OrderItemState;
 import com.tim07.service.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -127,6 +128,29 @@ public class TableOrderController {
 
         return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
+
+    @RequestMapping(
+            value = "setOrderState",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<OrderItemDTO> getChefDishes(@RequestHeader("Authorization") String userToken, @RequestBody OrderItemDTO item)
+    {
+
+        JwtUser user = this.jwtService.getUser(userToken);
+
+        Chef chef = this.chefService.findByUsername(user.getUsername());
+
+        if (chef != null){
+
+            return new ResponseEntity<>(converOrderItemToDTO(tableOrderService.setItemState(item.getId(),item.getState())),HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+    }
+
+
 
     private TableOrderDTO convertTableOrderToDTO(TableOrder order){
         ModelMapper mapper = new ModelMapper();

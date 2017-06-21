@@ -4,6 +4,8 @@ import com.tim07.domain.DTO.OrderItemDTO;
 import com.tim07.domain.Entity.OrderItem;
 import com.tim07.domain.Entity.Restaurant;
 import com.tim07.domain.Entity.TableOrder;
+import com.tim07.domain.Enumeration.OrderItemState;
+import com.tim07.repository.OrderItemRepository;
 import com.tim07.repository.TableOrderRepository;
 import com.tim07.repository.TableRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,9 @@ public class TableOrderServiceImpl implements TableOrderService {
     @Autowired
     private TableRepository tableRepository;
 
+    @Autowired
+    private OrderItemRepository orderItemRepository;
+
     public TableOrder createOrder(List<OrderItemDTO> orderItems, Restaurant restaurant, Long tableId) {
 
         List<OrderItem> orderItemsList = new ArrayList<>();
@@ -40,5 +45,12 @@ public class TableOrderServiceImpl implements TableOrderService {
 
         return tableOrderRepository.save(tableOrder);
 
+    }
+
+    public OrderItem setItemState(Long id, OrderItemState state)
+    {
+        OrderItem item = orderItemRepository.findById(id);
+        item.setState(state);
+        return orderItemRepository.save(item);
     }
 }

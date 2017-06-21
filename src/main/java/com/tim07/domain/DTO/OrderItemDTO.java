@@ -8,6 +8,8 @@ import com.tim07.domain.Enumeration.OrderItemState;
  */
 public class OrderItemDTO {
 
+    private Long id;
+
     private String name;
 
     private Double price;
@@ -20,7 +22,8 @@ public class OrderItemDTO {
 
     public OrderItemDTO() {}
 
-    public OrderItemDTO(String name, Double price, ItemType type, Integer amount, OrderItemState state) {
+    public OrderItemDTO(Long id,String name, Double price, ItemType type, Integer amount, OrderItemState state) {
+        this.id = id;
         this.name = name;
         this.price = price;
         this.type = type;
@@ -66,5 +69,13 @@ public class OrderItemDTO {
 
     public void setState(OrderItemState state) {
         this.state = state;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

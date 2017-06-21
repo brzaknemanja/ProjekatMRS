@@ -51,6 +51,14 @@ public class OrderItem {
         this.tableOrder = tableOrder;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }

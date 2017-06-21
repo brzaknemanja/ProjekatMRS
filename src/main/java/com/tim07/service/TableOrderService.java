@@ -4,6 +4,7 @@ import com.tim07.domain.DTO.OrderItemDTO;
 import com.tim07.domain.Entity.OrderItem;
 import com.tim07.domain.Entity.Restaurant;
 import com.tim07.domain.Entity.TableOrder;
+import com.tim07.domain.Enumeration.OrderItemState;
 
 import java.util.List;
 
@@ -13,4 +14,7 @@ import java.util.List;
 public interface TableOrderService {
 
     TableOrder createOrder(List<OrderItemDTO> orderItems, Restaurant restaurant, Long tableId);
+
+    OrderItem setItemState(Long id, OrderItemState state);
+
 }

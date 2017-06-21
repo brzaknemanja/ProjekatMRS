@@ -7,4 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * Created by brzak on 17.6.17..
  */
 public interface OrderItemRepository extends JpaRepository<OrderItem, Long> {
+
+    OrderItem findById(Long id);
 }
