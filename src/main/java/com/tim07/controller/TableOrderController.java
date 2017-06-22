@@ -67,6 +67,33 @@ public class TableOrderController {
     }
 
     @RequestMapping(
+            value = "finish",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<TableOrderDTO> finishOrder(@RequestHeader("Authorization") String userToken,
+                                                     @RequestBody TableOrderDTO tableOrderDTO)
+    {
+
+        JwtUser user = this.jwtService.getUser(userToken);
+
+        Waiter waiter = this.waiterService.getByUsername(user.getUsername());
+
+        if (waiter != null && tableOrderDTO.isReady()){
+
+            Restaurant restaurant = waiter.getRestaurant();
+
+            TableOrder tableOrder = tableOrderService.finishOrder(tableOrderDTO.getId());
+
+
+            return new ResponseEntity<>(convertTableOrderToDTO(tableOrder),HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+    }
+
+    @RequestMapping(
             value = "getWaiterOrders",
             method = RequestMethod.GET,
             consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -86,7 +113,7 @@ public class TableOrderController {
 
             for(TableOrder order : restaurant.getTableOrders()){
                 for(TableSegment segment : waiter.getTableSegments()){
-                    if(segment.getSegment() == order.getRestaurantTable().getSegment()){
+                    if(segment.getSegment() == order.getRestaurantTable().getSegment() && !order.isFinished()){
                         tableOrders.add(convertTableOrderToDTO(order));
                     }
                 }

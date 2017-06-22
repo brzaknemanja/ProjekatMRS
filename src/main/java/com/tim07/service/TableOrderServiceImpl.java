@@ -47,9 +47,18 @@ public class TableOrderServiceImpl implements TableOrderService {
 
     }
 
+    public TableOrder finishOrder(Long id)
+    {
+        TableOrder tableOrder = this.tableOrderRepository.findOne(id);
+
+        tableOrder.setFinished(true);
+
+        return this.tableOrderRepository.save(tableOrder);
+    }
+
     public OrderItem setItemState(Long id, OrderItemState state)
     {
-        OrderItem item = orderItemRepository.findById(id);
+        OrderItem item = this.orderItemRepository.findById(id);
         item.setState(state);
         return orderItemRepository.save(item);
     }

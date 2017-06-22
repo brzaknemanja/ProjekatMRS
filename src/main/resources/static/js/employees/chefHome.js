@@ -84,7 +84,7 @@ function showPreparingDishes(orders) {
     {
         var row = '<tr><td>' + orders[i].name + '</td><td>' + orders[i].amount +
             "</td><td>" + orders[i].state +
-            "</td><td><button type='button' id = '"+ i +"-btn-finished'>Start</button> </td></tr>";
+            "</td><td><button type='button' id = '"+ i +"-btn-finished'>Finish</button> </td></tr>";
         $("#preparing-orders tbody").append(row);
         $("#" + i +"-btn-finished").click({param1: orders[i], param2: "Finished"},setState);
         $("#" + i +"-btn-finished").bind('click',function () {

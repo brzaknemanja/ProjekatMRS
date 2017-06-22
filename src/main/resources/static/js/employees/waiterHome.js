@@ -277,6 +277,7 @@ function getTableOrders() {
         },
         success: function(data, textStatus, response){
             showTableOrders(data);
+            console.log(data);
         },
         error: function(response, textStatus){
             getToastr("", "Dobavljanje narudzbina neuspešno! \nStatus: " + response.status, 3);
@@ -292,7 +293,7 @@ function showTableOrders(tableOrders) {
 
     for(var i = 0; i < tableOrders.length; i++){
 
-        $("#tableOrders").append("<h2>Table: " + tableOrders[i].tableName + "</h2>")
+        $("#tableOrders").append("<h2 id= '"+ i +"-order-header''>Table: " + tableOrders[i].tableName + "</h2>")
         var table = "<table id='orders-table-" + i + "' class='table table-bordered'>" +
             "<thead> <tr> <th>Name</th> <th>Price</th> <th>Type</th> <th>Amount</th> <th>State</th> <th>Remove</th> </tr> </thead><tbody></tbody> </table>";
 
@@ -307,6 +308,40 @@ function showTableOrders(tableOrders) {
                 "</td><td><button type='button' class='remove-order-item'>Remove</button> </td></tr>";
             $("#orders-table-" + i + " tbody").append(row);
         }
+
+        if(tableOrders[i].ready){
+            $("#tableOrders").append("<button id= '"+ i +"-complete-order''>Finish</button>")
+            $("#" + i + "-complete-order").click({param1: tableOrders[i],param2: i},completeOrder);
+
+        }
     }
 
+}
+
+
+function completeOrder(event) {
+
+    var order = event.data.param1;
+    var index = event.data.param2;
+
+    $.ajax({
+        url: "/tableOrder/finish",
+        type: "POST",
+        contentType: "application/json",
+        dataType: "json",
+        data : JSON.stringify(order),
+        beforeSend: function(request){
+            request.setRequestHeader("Authorization", localStorage.getItem("currentUserToken"));
+        },
+        success: function(data, textStatus, response){
+
+            $("#orders-table-" + index).remove();
+            $("#" + index +"-order-header").remove();
+            $("#" + index + "-complete-order").remove();
+            getToastr("Table: " + order.tableName, "Finished table order!",1);
+        },
+        error: function(response, textStatus){
+            getToastr("", "Dobavljanje narudzbina neuspešno! \nStatus: " + response.status, 3);
+        }
+    });
 }
