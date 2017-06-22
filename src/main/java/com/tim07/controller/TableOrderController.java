@@ -37,6 +37,9 @@ public class TableOrderController {
     private ChefService chefService;
 
     @Autowired
+    private BarmanService barmanService;
+
+    @Autowired
     private JwtService jwtService;
 
     @RequestMapping(
@@ -215,6 +218,37 @@ public class TableOrderController {
 
 
     @RequestMapping(
+            value = "getBarmanDrinks",
+            method = RequestMethod.GET,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<List<OrderItemDTO>> getBarmanDrinks(@RequestHeader("Authorization") String userToken)
+    {
+
+        JwtUser user = this.jwtService.getUser(userToken);
+
+        Barman barman = this.barmanService.findByUsername(user.getUsername());
+
+        if (barman != null){
+
+            Restaurant restaurant = barman.getRestaurant();
+            List<OrderItemDTO> orderItemDTOS = new ArrayList<>();
+
+            for(TableOrder order : restaurant.getTableOrders()){
+                for(OrderItem item : order.getOrderItems()){
+                    if(item.getType() == ItemType.Drink && item.getState() == OrderItemState.Waiting)
+                        orderItemDTOS.add(converOrderItemToDTO(item));
+                }
+            }
+
+            return new ResponseEntity<>(orderItemDTOS,HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+    }
+
+    @RequestMapping(
             value = "getPreparingDishes",
             method = RequestMethod.GET,
             consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -257,8 +291,9 @@ public class TableOrderController {
         JwtUser user = this.jwtService.getUser(userToken);
 
         Chef chef = this.chefService.findByUsername(user.getUsername());
+        Barman barman = this.barmanService.findByUsername(user.getUsername());
 
-        if (chef != null){
+        if (chef != null || barman != null){
 
             return new ResponseEntity<>(converOrderItemToDTO(tableOrderService.setItemState(item.getId(),item.getState())),HttpStatus.OK);
         }

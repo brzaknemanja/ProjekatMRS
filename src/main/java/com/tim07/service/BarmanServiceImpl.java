@@ -45,4 +45,10 @@ public class BarmanServiceImpl implements BarmanService{
         this.barmanRepository.save(barman);
 
     }
+
+    @Override
+    public Barman findByUsername(String username)
+    {
+        return this.barmanRepository.findByUsername(username);
+    }
 }

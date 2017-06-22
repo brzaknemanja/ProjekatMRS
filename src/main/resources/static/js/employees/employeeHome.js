@@ -24,4 +24,7 @@ function home(currentUser) {
         getDishOrders();
         getPreparingDishes();
     }
+    else if(currentUser.type == "Barman") {
+        getDrinkOrders();
+    }
 }

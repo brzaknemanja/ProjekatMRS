@@ -8,5 +8,7 @@ import org.springframework.data.repository.Repository;
  */
 public interface BarmanRepository extends Repository<Barman, Long> {
 
+    Barman findByUsername(String username);
+
     void save(Barman barman);
 }

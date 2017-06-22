@@ -14,4 +14,6 @@ public interface BarmanService {
     void updateLastname(Barman barman);
 
     void updatePassword(Barman barman);
+
+    Barman findByUsername(String username);
 }
