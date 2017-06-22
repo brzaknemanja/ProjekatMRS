@@ -218,11 +218,10 @@ function finishOrder() {
             request.setRequestHeader("Authorization", localStorage.getItem("currentUserToken"));
         },
         success: function(data, textStatus, response){
-            console.log(data);
+            getToastr("Table: " + data.tableName,"Table order created!",1);
             tableOrder.orderItems = [];
             tableOrder.tableId = null;
-            $("#orderTable tbody tr").remove();;
-            console.log("orders " + tableOrder);
+            $("#orderTable tbody tr").remove();
             getTableOrders();
         },
         error: function(response, textStatus){
@@ -263,7 +262,6 @@ function closeOrder() {
 function deleteRow() {
     var par = $(this).parent().parent(); //tr
     par.remove();
-    console.log("sagasasg");
 }
 
 

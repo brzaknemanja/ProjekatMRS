@@ -118,7 +118,39 @@ public class TableOrderController {
 
             for(TableOrder order : restaurant.getTableOrders()){
                 for(OrderItem item : order.getOrderItems()){
-                    if(item.getType() == ItemType.Dish)
+                    if(item.getType() == ItemType.Dish && item.getState() == OrderItemState.Waiting)
+                        orderItemDTOS.add(converOrderItemToDTO(item));
+                }
+            }
+
+            return new ResponseEntity<>(orderItemDTOS,HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+    }
+
+
+    @RequestMapping(
+            value = "getPreparingDishes",
+            method = RequestMethod.GET,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<List<OrderItemDTO>> getPreparingDishes(@RequestHeader("Authorization") String userToken)
+    {
+
+        JwtUser user = this.jwtService.getUser(userToken);
+
+        Chef chef = this.chefService.findByUsername(user.getUsername());
+
+        if (chef != null){
+
+            Restaurant restaurant = chef.getRestaurant();
+            List<OrderItemDTO> orderItemDTOS = new ArrayList<>();
+
+            for(TableOrder order : restaurant.getTableOrders()){
+                for(OrderItem item : order.getOrderItems()){
+                    if(item.getType() == ItemType.Dish && item.getState() == OrderItemState.Preparing)
                         orderItemDTOS.add(converOrderItemToDTO(item));
                 }
             }
