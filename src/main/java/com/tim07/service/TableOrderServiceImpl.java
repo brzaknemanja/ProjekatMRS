@@ -62,4 +62,25 @@ public class TableOrderServiceImpl implements TableOrderService {
         item.setState(state);
         return orderItemRepository.save(item);
     }
+
+    public OrderItem setItemAmount(Long id, Integer amount)
+    {
+        OrderItem item = this.orderItemRepository.findById(id);
+
+        if(item.getState() != OrderItemState.Waiting)
+            return  null;
+
+        item.setAmount(amount);
+        return orderItemRepository.save(item);
+    }
+
+    public boolean removeItem(Long id)
+    {
+        OrderItem orderItem = this.orderItemRepository.findById(id);
+        if(orderItem.getState() != OrderItemState.Waiting)
+            return false;
+
+        this.orderItemRepository.delete(id);
+        return true;
+    }
 }

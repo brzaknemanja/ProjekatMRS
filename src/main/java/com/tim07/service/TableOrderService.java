@@ -19,4 +19,7 @@ public interface TableOrderService {
 
     OrderItem setItemState(Long id, OrderItemState state);
 
+    boolean removeItem(Long id);
+
+    OrderItem setItemAmount(Long id, Integer amount);
 }

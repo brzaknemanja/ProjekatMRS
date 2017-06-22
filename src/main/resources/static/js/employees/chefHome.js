@@ -121,7 +121,7 @@ function setState(event) {
 
         },
         error: function(response, textStatus){
-            getToastr("", "Promena stanja narudzbine neuspesna! \nStatus: " + response.status, 3);
+                getToastr("Try refreshing page", "Cannot complete action! \nStatus: " + response.status, 3);
         }
     });
 }

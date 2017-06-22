@@ -7,6 +7,8 @@ var tableOrder = {
     "tableId" : null
 };
 
+var changeItem = null;
+
 $(document).ready(function(){
 
 
@@ -33,6 +35,8 @@ $(document).ready(function(){
             $("#close-order").click(function () {
                 closeOrder();
             });
+
+            $("#amount-field-save").click(changeAmount);
         });
     });
 
@@ -295,7 +299,7 @@ function showTableOrders(tableOrders) {
 
         $("#tableOrders").append("<h2 id= '"+ i +"-order-header''>Table: " + tableOrders[i].tableName + "</h2>")
         var table = "<table id='orders-table-" + i + "' class='table table-bordered'>" +
-            "<thead> <tr> <th>Name</th> <th>Price</th> <th>Type</th> <th>Amount</th> <th>State</th> <th>Remove</th> </tr> </thead><tbody></tbody> </table>";
+            "<thead> <tr> <th>Name</th> <th>Price</th> <th>Type</th> <th>Amount</th> <th>State</th> <th>Change</th> <th>Remove</th> </tr> </thead><tbody></tbody> </table>";
 
         $("#tableOrders").append(table);
 
@@ -304,9 +308,12 @@ function showTableOrders(tableOrders) {
         for(var j = 0; j < orderItems.length; j++){
             var row = '<tr><td>' + orderItems[j].name + '</td><td>' +
                 orderItems[j].price + '</td><td>' + orderItems[j].type + '</td><td>' + orderItems[j].amount +
-                    "</td><td>" + orderItems[j].state +
-                "</td><td><button type='button' class='remove-order-item'>Remove</button> </td></tr>";
+                "</td><td>" + orderItems[j].state + "<td><button id='change-order-item-" + i + "-" + j + "'>Change</button></td>" +
+                "</td><td><button type='button' id='remove-order-item-" + i + "-" + j + "'>Remove</button> </td></tr>";
             $("#orders-table-" + i + " tbody").append(row);
+            $("#remove-order-item-" + i + "-" + j).click({param1: orderItems[j], param2: j},removeOrderItem);
+            $("#change-order-item-" + i + "-" + j).click({param1: orderItems[j], param2: j},setAmountChange);
+
         }
 
         if(tableOrders[i].ready){
@@ -341,7 +348,87 @@ function completeOrder(event) {
             getToastr("Table: " + order.tableName, "Finished table order!",1);
         },
         error: function(response, textStatus){
-            getToastr("", "Dobavljanje narudzbina neuspešno! \nStatus: " + response.status, 3);
+            getToastr("", "Completing order failed! \nStatus: " + response.status, 3);
         }
     });
+}
+
+
+function removeOrderItem(event) {
+    var item = event.data.param1;
+
+    if(item.state == "Preparing")
+    {
+        getToastr("Order item already in preparing ", "Removing not allowed!", 2);
+        return;
+    }
+    else if(item.state == "Finished")
+    {
+        getToastr("Order item already finished ", "Removing not allowed!", 2);
+        return;
+    }
+
+    $.ajax({
+        url: "/tableOrder/removeItem",
+        type: "POST",
+        contentType: "application/json",
+        dataType: "json",
+        data : JSON.stringify(item),
+        beforeSend: function(request){
+            request.setRequestHeader("Authorization", localStorage.getItem("currentUserToken"));
+        },
+        success: function(data, textStatus, response){
+            getToastr("Item: " + data.name, "Removed order item!",1);
+            getTableOrders();
+        },
+        error: function(response, textStatus){
+            getToastr("Try refreshing page", "Cannot delete order item! \nStatus: " + response.status, 3);
+        }
+    });
+}
+
+function setAmountChange(event)
+{
+    changeItem = event.data.param1;
+
+    if(changeItem.state == 'Waiting')
+        $("#amountModal").modal("show");
+    else
+    {
+        getToastr("Only orders in waiting state are allowed to be changed.", "Edit not allowed!",2);
+    }
+
+}
+
+function changeAmount() {
+
+    var amount = parseInt($("#amount-field").val());
+
+    if (isNaN(amount)) {
+        getToastr("", "Amount must be number!");
+        return;
+    }
+
+    changeItem.amount = amount;
+
+    $.ajax({
+        url: "/tableOrder/editItem",
+        type: "POST",
+        contentType: "application/json",
+        dataType: "json",
+        data: JSON.stringify(changeItem),
+        beforeSend: function (request) {
+            request.setRequestHeader("Authorization", localStorage.getItem("currentUserToken"));
+        },
+        success: function (data, textStatus, response) {
+
+            $("#amountModal").modal("hide");
+            getTableOrders();
+            getToastr("New amount: " + amount, "Changed order item amount!",1);
+        },
+        error: function (response, textStatus) {
+            getToastr("Try refreshing page", "Cannot change amount! \nStatus: " + response.status, 3);
+        }
+    });
+
 }

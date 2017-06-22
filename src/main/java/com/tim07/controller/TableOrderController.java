@@ -94,6 +94,63 @@ public class TableOrderController {
     }
 
     @RequestMapping(
+            value = "editItem",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<OrderItemDTO> editItem(@RequestHeader("Authorization") String userToken,
+                                                     @RequestBody OrderItemDTO orderItemDTO)
+    {
+
+        JwtUser user = this.jwtService.getUser(userToken);
+
+        Waiter waiter = this.waiterService.getByUsername(user.getUsername());
+
+        if (waiter != null){
+
+            Restaurant restaurant = waiter.getRestaurant();
+
+            OrderItem orderItem = this.tableOrderService.setItemAmount(orderItemDTO.getId(),orderItemDTO.getAmount());
+
+            if(orderItem == null)
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+            return new ResponseEntity<>(converOrderItemToDTO(orderItem),HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+    }
+
+    @RequestMapping(
+            value = "removeItem",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<OrderItemDTO> removeItem(@RequestHeader("Authorization") String userToken,
+                                                 @RequestBody OrderItemDTO orderItemDTO)
+    {
+
+        JwtUser user = this.jwtService.getUser(userToken);
+
+        Waiter waiter = this.waiterService.getByUsername(user.getUsername());
+
+        if (waiter != null){
+
+            Restaurant restaurant = waiter.getRestaurant();
+
+            if(this.tableOrderService.removeItem(orderItemDTO.getId()))
+                return new ResponseEntity<OrderItemDTO>(orderItemDTO,HttpStatus.OK);
+            else
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        }
+
+        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+    }
+
+    @RequestMapping(
             value = "getWaiterOrders",
             method = RequestMethod.GET,
             consumes = MediaType.APPLICATION_JSON_VALUE,
