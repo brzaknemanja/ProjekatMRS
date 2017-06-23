@@ -62,6 +62,8 @@ public class TableOrderController {
 
             TableOrder tableOrder = tableOrderService.createOrder(tableOrderDTO.getOrderItems(),restaurant, tableOrderDTO.getTableId());
 
+            if(tableOrder == null)
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
             return new ResponseEntity<>(convertTableOrderToDTO(tableOrder),HttpStatus.OK);
         }

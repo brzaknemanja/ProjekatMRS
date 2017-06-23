@@ -166,6 +166,12 @@ function addDish(event) {
         return;
     }
 
+    if(amount <= 0)
+    {
+        getToastr("", "Amount must be larger than zero!");
+        return;
+    }
+
     var orderItem = {
         "name" : dish.name,
         "price" : dish.price,
@@ -185,6 +191,12 @@ function addDrink(event){
     if(isNaN(amount))
     {
         getToastr("", "Amount must be number!");
+        return;
+    }
+
+    if(amount <= 0)
+    {
+        getToastr("", "Amount must be larger than zero!");
         return;
     }
 

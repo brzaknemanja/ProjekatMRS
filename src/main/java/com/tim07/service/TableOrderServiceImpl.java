@@ -36,6 +36,8 @@ public class TableOrderServiceImpl implements TableOrderService {
         TableOrder tableOrder = new TableOrder();
 
         for(OrderItemDTO item : orderItems){
+            if(item.getAmount() <= 0)
+                return null;
             orderItemsList.add(new OrderItem(item.getName(),item.getPrice(),item.getType(),item.getAmount(),tableOrder));
         }
 
@@ -81,6 +83,10 @@ public class TableOrderServiceImpl implements TableOrderService {
             return false;
 
         this.orderItemRepository.delete(id);
+
+        if(orderItem.getTableOrder().getOrderItems().isEmpty())
+            this.tableOrderRepository.delete(orderItem.getTableOrder().getId());
+
         return true;
     }
 }
