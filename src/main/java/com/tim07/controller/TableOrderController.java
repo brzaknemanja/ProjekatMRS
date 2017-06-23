@@ -9,6 +9,7 @@ import com.tim07.domain.Enumeration.OrderItemState;
 import com.tim07.service.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -60,10 +61,14 @@ public class TableOrderController {
 
             Restaurant restaurant = waiter.getRestaurant();
 
+            if(tableOrderDTO.getOrderItems().isEmpty())
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
             TableOrder tableOrder = tableOrderService.createOrder(tableOrderDTO.getOrderItems(),restaurant, tableOrderDTO.getTableId());
 
             if(tableOrder == null)
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
 
             return new ResponseEntity<>(convertTableOrderToDTO(tableOrder),HttpStatus.OK);
         }
@@ -116,7 +121,16 @@ public class TableOrderController {
 
             Restaurant restaurant = waiter.getRestaurant();
 
-            OrderItem orderItem = this.tableOrderService.setItemAmount(orderItemDTO.getId(),orderItemDTO.getAmount());
+            OrderItem orderItem = null;
+
+            try
+            {
+                orderItem  = this.tableOrderService.setItemAmount(orderItemDTO.getId(),orderItemDTO.getAmount());
+
+            }catch (OptimisticLockingFailureException e) {
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
+            }
+
 
             if(orderItem == null)
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -145,10 +159,18 @@ public class TableOrderController {
 
             Restaurant restaurant = waiter.getRestaurant();
 
-            if(this.tableOrderService.removeItem(orderItemDTO.getId()))
-                return new ResponseEntity<OrderItemDTO>(orderItemDTO,HttpStatus.OK);
-            else
-                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            try{
+                if(this.tableOrderService.removeItem(orderItemDTO.getId()))
+                    return new ResponseEntity<OrderItemDTO>(orderItemDTO,HttpStatus.OK);
+                else
+                    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+            }catch (OptimisticLockingFailureException e)
+            {
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
+            }
+
+
 
         }
 
@@ -297,7 +319,15 @@ public class TableOrderController {
 
         if (chef != null || barman != null){
 
-            return new ResponseEntity<>(converOrderItemToDTO(tableOrderService.setItemState(item.getId(),item.getState())),HttpStatus.OK);
+            try
+            {
+                return new ResponseEntity<>(converOrderItemToDTO(tableOrderService.setItemState(item.getId(),item.getState())),HttpStatus.OK);
+
+            }catch (OptimisticLockingFailureException e)
+            {
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
+            }
+
         }
 
         return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);

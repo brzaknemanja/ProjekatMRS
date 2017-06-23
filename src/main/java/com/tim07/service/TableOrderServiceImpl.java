@@ -61,6 +61,11 @@ public class TableOrderServiceImpl implements TableOrderService {
     public OrderItem setItemState(Long id, OrderItemState state)
     {
         OrderItem item = this.orderItemRepository.findById(id);
+        /*try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }*/
         item.setState(state);
         return orderItemRepository.save(item);
     }
@@ -68,6 +73,8 @@ public class TableOrderServiceImpl implements TableOrderService {
     public OrderItem setItemAmount(Long id, Integer amount)
     {
         OrderItem item = this.orderItemRepository.findById(id);
+
+
 
         if(item.getState() != OrderItemState.Waiting)
             return  null;
@@ -79,6 +86,13 @@ public class TableOrderServiceImpl implements TableOrderService {
     public boolean removeItem(Long id)
     {
         OrderItem orderItem = this.orderItemRepository.findById(id);
+
+        /*try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }*/
+
         if(orderItem.getState() != OrderItemState.Waiting)
             return false;
 

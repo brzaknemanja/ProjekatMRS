@@ -121,6 +121,9 @@ function setState(event) {
 
         },
         error: function(response, textStatus){
+            if(response.status == 409)
+                getToastr("Try refreshing page", "Order already changed!",2);
+            else
                 getToastr("Try refreshing page", "Cannot complete action! \nStatus: " + response.status, 3);
         }
     });

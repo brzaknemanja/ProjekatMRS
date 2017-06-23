@@ -39,6 +39,10 @@ public class OrderItem {
     @ManyToOne
     private TableOrder tableOrder;
 
+    @Version
+    @Column(name = "VERSION")
+    private Integer version;
+
 
     public OrderItem() {}
 

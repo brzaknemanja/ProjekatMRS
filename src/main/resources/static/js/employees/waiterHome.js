@@ -159,6 +159,7 @@ function addDish(event) {
 
     var dish = event.data.param1;
     var amount = parseInt($("#" + event.data.param2 + "-amount-dish").val());
+    $("#" + event.data.param2 + "-amount-dish").val("");
 
     if(isNaN(amount))
     {
@@ -187,6 +188,7 @@ function addDrink(event){
 
     var drink = event.data.param1;
     var amount = parseInt($("#" + event.data.param2 + "-amount-drink").val());
+    $("#" + event.data.param2 + "-amount-drink").val("");
 
     if(isNaN(amount))
     {
@@ -223,6 +225,12 @@ function refreshOrder(orderItem) {
 function finishOrder() {
 
     collectTableData();
+
+    if(tableOrder.orderItems.length == 0)
+    {
+        getToastr("Table order can't be empty","Error adding table order!",2);
+        return;
+    }
 
     $.ajax({
         url: "/tableOrder/create",
@@ -394,7 +402,10 @@ function removeOrderItem(event) {
             getTableOrders();
         },
         error: function(response, textStatus){
-            getToastr("Try refreshing page", "Cannot delete order item! \nStatus: " + response.status, 3);
+            if(response.status == 409)
+                getToastr("Try refreshing page", "Order already changed!",2);
+            else
+                getToastr("Try refreshing page", "Cannot delete order item! \nStatus: " + response.status, 3);
         }
     });
 }
@@ -415,6 +426,7 @@ function setAmountChange(event)
 function changeAmount() {
 
     var amount = parseInt($("#amount-field").val());
+    $("#amount-field").val("");
 
     if (isNaN(amount)) {
         getToastr("", "Amount must be number!");
@@ -439,7 +451,10 @@ function changeAmount() {
             getToastr("New amount: " + amount, "Changed order item amount!",1);
         },
         error: function (response, textStatus) {
-            getToastr("Try refreshing page", "Cannot change amount! \nStatus: " + response.status, 3);
+            if(response.status == 409)
+                getToastr("Try refreshing page", "Order already changed!",2);
+            else
+                getToastr("Try refreshing page", "Cannot change amount! \nStatus: " + response.status, 3);
         }
     });
 
