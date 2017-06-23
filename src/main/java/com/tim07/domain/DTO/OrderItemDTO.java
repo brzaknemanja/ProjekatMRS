@@ -12,6 +12,8 @@ public class OrderItemDTO {
 
     private String name;
 
+    private String description;
+
     private Double price;
 
     private ItemType type;
@@ -22,13 +24,14 @@ public class OrderItemDTO {
 
     public OrderItemDTO() {}
 
-    public OrderItemDTO(Long id,String name, Double price, ItemType type, Integer amount, OrderItemState state) {
+    public OrderItemDTO(Long id,String name, String description, Double price, ItemType type, Integer amount, OrderItemState state) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.type = type;
         this.amount = amount;
         this.state = state;
+        this.description = description;
     }
 
     public String getName() {
@@ -77,5 +80,13 @@ public class OrderItemDTO {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

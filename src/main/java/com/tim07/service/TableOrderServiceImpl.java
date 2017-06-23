@@ -38,7 +38,7 @@ public class TableOrderServiceImpl implements TableOrderService {
         for(OrderItemDTO item : orderItems){
             if(item.getAmount() <= 0)
                 return null;
-            orderItemsList.add(new OrderItem(item.getName(),item.getPrice(),item.getType(),item.getAmount(),tableOrder));
+            orderItemsList.add(new OrderItem(item.getName(), item.getDescription(),item.getPrice(),item.getType(),item.getAmount(),tableOrder));
         }
 
         tableOrder.setOrderItems(orderItemsList);

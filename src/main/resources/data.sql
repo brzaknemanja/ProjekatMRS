@@ -21,6 +21,7 @@ insert into waiter(name, lastname, username, password, type, date_of_birth, dres
 insert into waiter(name, lastname, username, password, type, date_of_birth, dress_size, shoe_size, id, restaurant_id) values ('nemanja', 'brzak', 'brzak', '2222', 'Waiter',  '10.10.1995.', 42, 38, 19, 20);
 insert into chef(name, lastname, username, password, type, date_of_birth, dress_size, shoe_size, id, restaurant_id) values ('nemanja', 'brzak', 'onako', '2222', 'Chef',  '10.10.1995.', 42, 38, 23, 20);
 insert into barman(name, lastname, username, password, type, date_of_birth, dress_size, shoe_size, id, restaurant_id) values ('nemanja', 'brzak', 'spori', '2222', 'Barman',  '10.10.1995.', 42, 38, 21, 20);
+insert into chef(name, lastname, username, password, type, date_of_birth, dress_size, shoe_size, id, restaurant_id) values ('nemanja', 'brzak', 'mare', '2222', 'Chef',  '10.10.1995.', 42, 38, 26, 20);
 
 insert into restaurant_table(id,name,chair_number,left,top,rotation,segment,restaurant_id) values (1,'P1',4,0,0,0,'InsideSmoking', 20);
 insert into restaurant_table(id,name,chair_number,left,top,rotation,segment,restaurant_id) values (2,'P2',4,0,0,0,'InsideSmoking', 20);

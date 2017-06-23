@@ -175,10 +175,13 @@ function addDish(event) {
 
     var orderItem = {
         "name" : dish.name,
+        "description" : dish.description,
         "price" : dish.price,
         "type" : "Dish",
         "amount" : amount
     }
+
+    console.log(orderItem);
 
     refreshOrder(orderItem);
 
@@ -204,6 +207,7 @@ function addDrink(event){
 
     var orderItem = {
         "name" : drink.name,
+        "description" : drink.description,
         "price" : drink.price,
         "type" : "Drink",
         "amount" : amount
@@ -214,7 +218,7 @@ function addDrink(event){
 
 function refreshOrder(orderItem) {
 
-    var row = '<tr><td>' + orderItem.name + '</td><td>' +
+    var row = '<tr><td>' + orderItem.name + '</td><td>' + orderItem.description + '</td><td>' +
         orderItem.price + '</td><td>' + orderItem.type + '</td><td>' + orderItem.amount +
         "</td><td><button type='button' class='remove-order-item'>Remove</button> </td></tr>";
     $("#orderTable tbody").append(row);
@@ -264,9 +268,11 @@ function collectTableData() {
     {
         var orderItem = new Object();
         orderItem.name = $(this).children("td:nth-child(1)").text();
-        orderItem.price = $(this).children("td:nth-child(2)").text();
-        orderItem.type = $(this).children("td:nth-child(3)").text();
-        orderItem.amount = $(this).children("td:nth-child(4)").text();
+        orderItem.description = $(this).children("td:nth-child(2)").text();
+        orderItem.price = $(this).children("td:nth-child(3)").text();
+        orderItem.type = $(this).children("td:nth-child(4)").text();
+        orderItem.amount = $(this).children("td:nth-child(5)").text();
+
         tableOrder.orderItems.push(orderItem);
         console.log(orderItem);
 
@@ -319,14 +325,14 @@ function showTableOrders(tableOrders) {
 
         $("#tableOrders").append("<h2 id= '"+ i +"-order-header''>Table: " + tableOrders[i].tableName + "</h2>")
         var table = "<table id='orders-table-" + i + "' class='table table-bordered'>" +
-            "<thead> <tr> <th>Name</th> <th>Price</th> <th>Type</th> <th>Amount</th> <th>State</th> <th>Change</th> <th>Remove</th> </tr> </thead><tbody></tbody> </table>";
+            "<thead> <tr> <th>Name</th> <th>Description</th> <th>Price</th> <th>Type</th> <th>Amount</th> <th>State</th> <th>Change</th> <th>Remove</th> </tr> </thead><tbody></tbody> </table>";
 
         $("#tableOrders").append(table);
 
         var orderItems = tableOrders[i].orderItems;
 
         for(var j = 0; j < orderItems.length; j++){
-            var row = '<tr><td>' + orderItems[j].name + '</td><td>' +
+            var row = '<tr><td>' + orderItems[j].name + '</td>' + '<td>' + orderItems[j].description + '</td><td>' +
                 orderItems[j].price + '</td><td>' + orderItems[j].type + '</td><td>' + orderItems[j].amount +
                 "</td><td>" + orderItems[j].state + "<td><button id='change-order-item-" + i + "-" + j + "'>Change</button></td>" +
                 "</td><td><button type='button' id='remove-order-item-" + i + "-" + j + "'>Remove</button> </td></tr>";

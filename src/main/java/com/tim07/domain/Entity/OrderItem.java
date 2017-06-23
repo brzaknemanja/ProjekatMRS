@@ -22,6 +22,10 @@ public class OrderItem {
 
     @Column(nullable = false)
     @NotNull
+    private String description;
+
+    @Column(nullable = false)
+    @NotNull
     private Double price;
 
     @Column(nullable = false)
@@ -46,8 +50,9 @@ public class OrderItem {
 
     public OrderItem() {}
 
-    public OrderItem(String name, Double price, ItemType type, Integer amount, TableOrder tableOrder) {
+    public OrderItem(String name, String description, Double price, ItemType type, Integer amount, TableOrder tableOrder) {
         this.name = name;
+        this.description = description;
         this.price = price;
         this.type = type;
         this.state = OrderItemState.Waiting;
@@ -109,5 +114,13 @@ public class OrderItem {
 
     public void setAmount(Integer amount) {
         this.amount = amount;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

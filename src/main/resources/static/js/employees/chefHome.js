@@ -29,13 +29,13 @@ function showDishOrders(orders)
 
     $("#new-orders-div").append("<h2 id='waiting-header'>New orders: </h2>")
     var table = "<table id = 'waiting-orders' class='table table-bordered'>" +
-        "<thead> <tr> <th>Name</th><th>Amount</th> <th>State</th> <th>Prepare</th> </tr> </thead><tbody></tbody> </table>";
+        "<thead> <tr> <th>Name</th><th>Description</th><th>Amount</th> <th>State</th> <th>Prepare</th> </tr> </thead><tbody></tbody> </table>";
 
     $("#new-orders-div").append(table);
 
     for(var i = 0; i < orders.length ; i++)
     {
-        var row = '<tr><td>' + orders[i].name + '</td><td>' + orders[i].amount +
+        var row = '<tr><td>' + orders[i].name + '</td><td>'+ orders[i].description + '</td><td>' + orders[i].amount +
             "</td><td>" + orders[i].state +
             "</td><td><button type='button' id = '"+ i +"-btn-start'>Start</button> </td></tr>";
         $("#waiting-orders tbody").append(row);
@@ -76,13 +76,13 @@ function showPreparingDishes(orders) {
 
     $("#preparing-orders-div").append("<h2 id = 'preparing-header'>Preparing orders: </h2>");
     var table = "<table id = 'preparing-orders' class='table table-bordered'>" +
-        "<thead> <tr> <th>Name</th><th>Amount</th> <th>State</th> <th>Prepare</th> </tr> </thead><tbody></tbody> </table>";
+        "<thead> <tr> <th>Name</th><th>Description</th><th>Amount</th> <th>State</th> <th>Prepare</th> </tr> </thead><tbody></tbody> </table>";
 
     $("#preparing-orders-div").append(table);
 
     for(var i = 0; i < orders.length ; i++)
     {
-        var row = '<tr><td>' + orders[i].name + '</td><td>' + orders[i].amount +
+        var row = '<tr><td>' + orders[i].name + '</td><td>'+ orders[i].description + '</td><td>' + orders[i].amount +
             "</td><td>" + orders[i].state +
             "</td><td><button type='button' id = '"+ i +"-btn-finished'>Finish</button> </td></tr>";
         $("#preparing-orders tbody").append(row);
